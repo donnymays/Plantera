@@ -21,8 +21,12 @@ const Plant = props => {
             </View>
             <View style={styles.actions}>
               <Button
-                color={Colors.red}
+                color={Colors.green}
                 title="View Details"
+              />
+              <Button
+                color={Colors.green}
+                title="Water"
               />
             </View>
           </View>
