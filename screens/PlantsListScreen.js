@@ -9,9 +9,19 @@ const PlantsListScreen = props => {
   return (
     <FlatList 
       data={plants}
-      renderItem={itemData => <Text>{itemData.item.name}</Text>}
+      renderItem={itemData => 
+        <Plant
+          image={itemData.item.imageUrl}
+          name={itemData.item.name}
+          waterDate={itemData.item.waterDate}
+        />}
+      
     />
   )
+}
+
+PlantsListScreen.navigationOptions = {
+  headerTitle: 'Your Plants'
 }
 
 export default PlantsListScreen
