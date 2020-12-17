@@ -10,7 +10,7 @@ const Plant = props => {
   return (
     <View style={styles.plant}>
       <View style={styles.touchable}>
-        <TouchableCmp useForeground>
+        <TouchableCmp onPress={() =>{props.onSelectPlant}} useForeground>
           <View>
             <View style={styles.imageContainer}>
               <Image style={styles.image} source={{ uri: props.image }} />
@@ -23,6 +23,11 @@ const Plant = props => {
               <Button
                 color={Colors.green}
                 title="View Details"
+                onPress={() =>{
+                  props.navigation.navigate({
+                    routeName: 'PlantDetails'
+                  })
+                }}
               />
               <Button
                 color={Colors.green}

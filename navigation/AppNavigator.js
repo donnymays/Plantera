@@ -2,11 +2,13 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import { Platform } from 'react-native';
 import PlantsListScreen from '../screens/PlantsListScreen';
+import PlantDetailsScreen from '../screens/PlantDetailsScreen';
 
 import Colors from '../constants/Colors';
 
 const PlantsNavigator = createStackNavigator({
-  PlantsList: PlantsListScreen
+  PlantsList: PlantsListScreen,
+  PlantDetails: PlantDetailsScreen
 }, {
   defaultNavigationOptions: {
     headerStyle: {

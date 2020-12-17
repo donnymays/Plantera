@@ -14,6 +14,8 @@ const PlantsListScreen = props => {
           image={itemData.item.imageUrl}
           name={itemData.item.name}
           waterDate={itemData.item.waterDate}
+          navigation={props.navigation}
+          // onSelectPlant={}
         />}
       
     />
