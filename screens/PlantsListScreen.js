@@ -15,6 +15,14 @@ const PlantsListScreen = props => {
           name={itemData.item.name}
           waterDate={itemData.item.waterDate}
           navigation={props.navigation}
+          onSelectPlant={() => {
+            props.navigation.navigate({
+              routeName: 'PlantDetails',
+              params: {
+                plantId: itemData.item.id
+              }
+            })
+          }}
         />
       }
       

@@ -8,7 +8,8 @@ const Plant = props => {
   let TouchableCmp = TouchableOpacity;
   if (Platform.OS === "android" && Platform.Version >= 21) {
     TouchableCmp = TouchableNativeFeedback;
-  } 
+  }
+  
   return (
     <View style={styles.plant}>
       <View style={styles.touchable}>
@@ -25,7 +26,14 @@ const Plant = props => {
               <Button
                 color={Colors.green}
                 title="View Details"
-                onPress={() => {props.navigation.navigate('PlantDetails',)}}
+                onPress={props.onSelectPlant}
+                //   {props.navigation.navigate({
+                //   routeName: 'PlantDetails', 
+                //   params: {
+                //     plantId: itemData.item.id
+                //   }
+                // })
+                // }}
               />
               <Button
                 color={Colors.green}
