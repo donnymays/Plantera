@@ -3,6 +3,9 @@ import { StyleSheet, Text, View, ScrollView, Image, Button } from 'react-native'
 import Colors  from '../constants/Colors'
 import { BoldText } from '../components/Text'
 import PLANTS from '../data/seed-data';
+import { Ionicons } from '@expo/vector-icons'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton';
 
 const PlantDetailsScreen = props => {
   const plantId = props.navigation.getParam('plantId');
@@ -38,7 +41,17 @@ PlantDetailsScreen.navigationOptions = (navigationData) => {
   const plantId = navigationData.navigation.getParam('plantId');
   const selectedPlant = PLANTS.find(plant => plant.id === plantId);
   return {
-    headerTitle: selectedPlant.name
+    headerTitle: selectedPlant.name,
+    headerRight: (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="Favorite"
+          iconName='ios-leaf'
+          // iconName={isFavorite ? "ios-star" : "ios-star-outline"} 
+          // onPress={toggleFavorite}
+        />
+      </HeaderButtons>
+    )
   }
 }
 export default PlantDetailsScreen

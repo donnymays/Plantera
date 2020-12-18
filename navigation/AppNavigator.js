@@ -12,10 +12,10 @@ const PlantsNavigator = createStackNavigator({
 }, {
   defaultNavigationOptions: {
     headerStyle: {
-      backgroundColor: Colors.green,
+      backgroundColor: Platform.OS === "android" ? Colors.green : "#F3F5F6",
       height: 125
     },
-    headerTintColor: Colors.gray,
+    headerTintColor: Platform.OS === "android" ? Colors.grey : Colors.green,
     headerTitleStyle: {
       fontFamily: 'sacramento',
       fontSize: 36
