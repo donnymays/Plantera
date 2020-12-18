@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableNativeFeedbac
 import Colors from '../constants/Colors';
 import {BoldText, DefaultText} from './Text'
 
-
 const Plant = props => {
   let TouchableCmp = TouchableOpacity;
   if (Platform.OS === "android" && Platform.Version >= 21) {
@@ -16,7 +15,7 @@ const Plant = props => {
         <TouchableCmp onPress={() =>{props.onSelectPlant}} useForeground>
           <View>
             <View style={styles.imageContainer}>
-              <Image style={styles.image} source={{ uri: props.image }} />
+              <Image style={styles.image} source={{ uri: props.imageUrl }} />
             </View>
             <View style={styles.plantData}>
               <BoldText style={styles.name}>{props.name}</BoldText>
