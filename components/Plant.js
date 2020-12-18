@@ -27,13 +27,6 @@ const Plant = props => {
                 color={Colors.green}
                 title="View Details"
                 onPress={props.onSelectPlant}
-                //   {props.navigation.navigate({
-                //   routeName: 'PlantDetails', 
-                //   params: {
-                //     plantId: itemData.item.id
-                //   }
-                // })
-                // }}
               />
               <Button
                 color={Colors.green}
