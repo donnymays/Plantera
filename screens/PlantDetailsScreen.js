@@ -61,7 +61,7 @@ const PlantDetailsScreen = props => {
 PlantDetailsScreen.navigationOptions = navigationData => {
   const plantId = navigationData.navigation.getParam('plantId');
   const plantName = navigationData.navigation.getParam('plantName');
-  const selectedPlant = PLANTS.find(plant => plant.id === plantId)
+  // const selectedPlant = PLANTS.find(plant => plant.id === plantId)
   const toggleFavorite = navigationData.navigation.getParam('toggleFav');
   const isFavorite = navigationData.navigation.getParam('isFav');
   // return console.log(selectedPlant);

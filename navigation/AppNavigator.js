@@ -6,7 +6,7 @@ import { createAppContainer } from 'react-navigation';
 import { Platform } from 'react-native';
 import PlantsListScreen from '../screens/PlantsListScreen';
 import PlantDetailsScreen from '../screens/PlantDetailsScreen';
-import FavoritesScreen from '../screens/PlantDetailsScreen';
+import FavoritesScreen from '../screens/FavoritesScreen';
 import CalendarScreen from '../screens/CalendarScreen';
 
 import Colors from '../constants/Colors';
