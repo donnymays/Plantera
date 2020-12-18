@@ -6,7 +6,7 @@ const PLANTS = [
     'Joe',
     'Monstera',
     'https://image.shutterstock.com/image-photo/beautiful-monstera-flower-white-pot-600w-1546974272.jpg',
-    '12/17/2020',
+    '12/10/2020',
     '12/10/2020',
     'Lovely plant 10/10'
   ),

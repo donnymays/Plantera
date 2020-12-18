@@ -33,13 +33,13 @@ const PlantDetailsScreen = props => {
         />
       </View>
     </View>
- 
   )
 }
 
-PlantDetailsScreen.navigationOptions = (navigationData) => {
+PlantDetailsScreen.navigationOptions = navigationData => {
   const plantId = navigationData.navigation.getParam('plantId');
-  const selectedPlant = PLANTS.find(plant => plant.id === plantId);
+  const selectedPlant = PLANTS.find(plant => plant.id === plantId)
+  // return console.log(selectedPlant);
   return {
     headerTitle: selectedPlant.name,
     headerRight: (
@@ -54,6 +54,7 @@ PlantDetailsScreen.navigationOptions = (navigationData) => {
     )
   }
 }
+
 export default PlantDetailsScreen
 
 const styles = StyleSheet.create({
