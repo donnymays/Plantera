@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableNativeFeedback, Platform, Button } from 'react-native';
 import Colors from '../constants/Colors';
+import {BoldText, DefaultText} from './Text'
+
 
 const Plant = props => {
   let TouchableCmp = TouchableOpacity;
@@ -16,18 +18,14 @@ const Plant = props => {
               <Image style={styles.image} source={{ uri: props.image }} />
             </View>
             <View style={styles.plantData}>
-              <Text style={styles.name}>{props.name}</Text>
-              <Text style={styles.waterDate}>Last Watered On: {props.waterDate}</Text>
+              <BoldText style={styles.name}>{props.name}</BoldText>
+              <DefaultText style={styles.waterDate}>Last Watered On: {props.waterDate}</DefaultText>
             </View>
             <View style={styles.actions}>
               <Button
                 color={Colors.green}
                 title="View Details"
-                onPress={() =>{
-                  props.navigation.navigate({
-                    routeName: 'PlantDetails'
-                  })
-                }}
+                onPress={() => {props.navigation.navigate('PlantDetails',)}}
               />
               <Button
                 color={Colors.green}
@@ -88,7 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     height: "25%",
-    paddingHorizontal: 20
-  },
+    paddingHorizontal: 20,
+  }
 });
 

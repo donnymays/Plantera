@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import AppNavigator from './navigation/AppNavigator';
-import { enableScreens } from 'react-native-screens';
 
 import plantsReducer from './store/reducers/plants';
 
