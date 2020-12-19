@@ -1,29 +1,41 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import PlantList from '../components/PlantList';
+
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton';
+import { useSelector } from 'react-redux';
 
 const FavoritesScreen = props => {
+  const favPlants = useSelector(state => state.plants.favoritePlants);
+
+  if (favPlants.length === 0 || !favPlants) {
+    return(
+      <View style={styles.content}>
+        <Text>No Favorites Selected</Text>
+      </View>
+    )
+  }
+  
   return (
-    <View>
-      <Text>Favorites</Text>
-    </View>
-  )
+    <PlantList listData={favPlants} navigation={props.navigation} />
+  );
+};
+
+FavoritesScreen.navigationOptions = (navData) => {
+  return {
+    headerTitle: 'Your Favorites',
+  }
 }
 
-FavoritesScreen.navigationOptions = {
-  
-    headerTitle: 'Your Favorites',
-    // headerRight: (
-    //   <HeaderButtons HeaderButtonComponent={HeaderButton}>
-    //     <Item
-    //       title="Favorite"
-    //       iconName='ios-leaf'
-    //       // iconName={isFavorite ? "ios-star" : "ios-star-outline"} 
-    //       // onPress={toggleFavorite}
-    //     />
-    //   </HeaderButtons>
-    // )
+export default FavoritesScreen;
+
+const styles = StyleSheet.create({
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
+});
 
-export default FavoritesScreen
 
-const styles = StyleSheet.create({})

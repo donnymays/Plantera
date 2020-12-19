@@ -6,7 +6,7 @@ import Plant from '../components/Plant';
 
 
 const PlantList = props => {
-  const plants = useSelector(state => state.plants.plants);
+  
   const favoritePlants = useSelector(state => state.plants.favoritePlants);
 
   const renderPlantItem = itemData => {
@@ -36,7 +36,7 @@ const PlantList = props => {
   return (
     <View>
       <FlatList
-        data={plants}
+        data={props.listData}
         renderItem={renderPlantItem}
         style={{width: '100%'}}
       />
