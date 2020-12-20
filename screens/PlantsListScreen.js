@@ -7,8 +7,10 @@ import PlantList from '../components/PlantList'
 
 const PlantsListScreen = props => {
   const plants = useSelector(state => state.plants.plants);
+ 
     return (
       <PlantList navigation={props.navigation} listData={plants}/>
+      
   );
 };
 

@@ -13,6 +13,10 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer);
 
+// store.subscribe(() =>
+//   console.log(store.getState())
+// );
+
 const fetchFonts = () => {
   return Font.loadAsync({
     'sacramento': require('./assets/fonts/Sacramento.ttf'),

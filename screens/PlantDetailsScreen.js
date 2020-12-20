@@ -17,7 +17,7 @@ const PlantDetailsScreen = props => {
   const currentPlantIsFavorite = useSelector(state => 
     state.plants.favoritePlants.some(plant => plant.id === plantId)
   );
-  console.log(selectedPlant);
+ 
   const dispatch = useDispatch();
 
   const toggleFavoriteHandler = useCallback(() => {

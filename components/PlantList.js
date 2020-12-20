@@ -7,10 +7,12 @@ import Plant from '../components/Plant';
 
 const PlantList = props => {
   
-  const favoritePlants = useSelector(state => state.plants.favoritePlants);
-
+  // const favoritePlants = useSelector(state => state.plants.favoritePlants);
+  // if (favoritePlants.length > 0) {
+  //   const isFavorite = favoritePlants.some(plant => plant.id === itemData.id);
+  // };
   const renderPlantItem = itemData => {
-    const isFavorite = favoritePlants.some(plant => plant.id === itemData.id);
+  
     return (
       <Plant
         name={itemData.item.name}

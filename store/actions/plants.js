@@ -6,6 +6,19 @@ export const toggleFavorite = (id) => {
 
 export const ADD_PLANT = 'ADD_PLANT';
 
-export const addPlant = (id) => {
-  return { type: ADD_PLANT, plantId: id }
+export const addPlant = (plant) => {
+  // const { id, name, type, imageUrl, dateReceived, waterDate, notes } = plant
+  return { 
+    type: ADD_PLANT, 
+    plant: plant
+    // plantData: { 
+    //   id: id,
+    //   name: name,
+    //   type: type,
+    //   imageUrl: imageUrl,
+    //   dateReceived: dateReceived,
+    //   waterDate: waterDate,
+    //   notes: notes
+    // } 
+  }
 }
