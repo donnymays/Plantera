@@ -1,18 +1,17 @@
 
 import React from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 import Plant from '../components/Plant';
 
 
 const PlantList = props => {
-  
   // const favoritePlants = useSelector(state => state.plants.favoritePlants);
   // if (favoritePlants.length > 0) {
   //   const isFavorite = favoritePlants.some(plant => plant.id === itemData.id);
   // };
   const renderPlantItem = itemData => {
-  
+    
     return (
       <Plant
         name={itemData.item.name}
@@ -34,9 +33,9 @@ const PlantList = props => {
       />
     );   
   };
-
   return (
     <View>
+      
       <FlatList
         data={props.listData}
         renderItem={renderPlantItem}

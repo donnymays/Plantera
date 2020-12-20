@@ -42,7 +42,14 @@ const NewPlantScreen = () => {
 
   
   const savePlantHandler = () => {
-    const newPlant = { name: plantNameValue, type: plantTypeValue, imageUrl: plantImageValue, dateReceived: dateReceivedValue, waterDate: waterDateValue, notes: plantNotesValue } 
+    const newPlant = { 
+      id: new Date().toString(),
+      name: plantNameValue, 
+      type: plantTypeValue, 
+      imageUrl: plantImageValue, 
+      dateReceived: dateReceivedValue.toString(), 
+      waterDate: waterDateValue.toString(), 
+      notes: plantNotesValue } 
       // id, plantNameValue, plantTypeValue, plantImageValue, dateReceivedValue, waterDateValue, plantNotesValue
     dispatch(plantsActions.addPlant(newPlant))
     // console.log(newPlant);

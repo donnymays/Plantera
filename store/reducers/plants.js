@@ -12,35 +12,30 @@ const plantsReducer = (state = initialState, action) => {
     case ADD_PLANT:
  
       const newPlant = new Plant(
-        "1",
-        action.plant.name,
-        action.plant.type,
-        action.plant.imageUrl,
-        action.plant.dateReceived,
-        action.plant.waterDate,
-        action.plant.notes
+        action.plantData.id,
+        action.plantData.name,
+        action.plantData.type,
+        action.plantData.imageUrl,
+        action.plantData.dateReceived,
+        action.plantData.waterDate,
+        action.plantData.notes
       )
-      
-      state.plants.push(newPlant)
-      // console.log(newState);
-      return  state;
-      
-       
-        
-      
-    
-    // case TOGGLE_FAVORITE:
-    //   const existingIndex = state.favoritePlants.findIndex(
-    //     plant => plant.id === action.plantId
-    //   );
-    // if (existingIndex >= 0) {
-    //   const updatedFavPlants = [...state.favoritePlants];
-    //   updatedFavePlants.splice(existingIndex, 1);
-    //   return { ...state, favoritePlants: updatedFavPlants };
-    // } else {
-    //   const plant = state.plants.find(plant => plant.id === action.plantId);
-    //   return { ...state, favoritePlants: state.favoritePlants.concat(plant) };
-    // }
+      return {
+        plants: state.plants.concat(newPlant)
+      }
+   
+    case TOGGLE_FAVORITE:
+      const existingIndex = state.favoritePlants.findIndex(
+        plant => plant.id === action.plantId
+      );
+    if (existingIndex >= 0) {
+      const updatedFavPlants = [...state.favoritePlants];
+      updatedFavePlants.splice(existingIndex, 1);
+      return { ...state, favoritePlants: updatedFavPlants };
+    } else {
+      const plant = state.plants.find(plant => plant.id === action.plantId);
+      return { ...state, favoritePlants: state.favoritePlants.concat(plant) };
+    }
     default:
       return state;
   }

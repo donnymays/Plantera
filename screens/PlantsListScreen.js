@@ -5,12 +5,11 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
 import PlantList from '../components/PlantList'
 
-const PlantsListScreen = props => {
+const PlantsListScreen = props => {  
   const plants = useSelector(state => state.plants.plants);
- 
+
     return (
-      <PlantList navigation={props.navigation} listData={plants}/>
-      
+      <PlantList navigation={props.navigation} listData={plants}/> 
   );
 };
 
