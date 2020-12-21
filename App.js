@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import AppNavigator from './navigation/AppNavigator';
+import ReduxThunk from 'redux-thunk';
 
 import plantsReducer from './store/reducers/plants';
 
@@ -11,7 +12,7 @@ const rootReducer = combineReducers({
   plants: plantsReducer
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 store.subscribe(() =>
   console.log(store.getState())
