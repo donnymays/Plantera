@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { StyleSheet, Text, View, TextInput, ScrollView, Button, Platform } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '../constants/Colors'
 import { format } from 'date-fns';
 import parse from 'date-fns/parse'
+import * as plantsActions from '../store/actions/plants';
 
 const EditPlantScreen = props => {
   const plantId = props.navigation.getParam('plantId');
-  console.log(plantId);
   const editedPlant = useSelector(
     state => state.plants.plants.find(plant => plant.id === plantId)
   );
@@ -19,23 +19,15 @@ const EditPlantScreen = props => {
   const [type, setType] = useState(editedPlant ? editedPlant.type : '');
   const [image, setImage] = useState(editedPlant ? editedPlant.image : '');
   const [notes, setNotes] = useState(editedPlant ? editedPlant.notes : '');
-  // const [dateReceived, setDateReceived] = useState(
-  //   editedPlant ? format(editedPlant.dateReceived, '' : new Date()
-  // );
-  const [waterDate, setWaterDate] = useState(editedPlant ? parse(editedPlant.waterDate, 'yyyy/MM/dd', new Date())  : new Date());
-  const [dateReceived, setDateReceived] = useState(editedPlant ? parse(editedPlant.dateReceived, 'yyyy/MM/dd', new Date())  : new Date());
 
-
-  // const [dateReceived, setDateReceived] = useState(new Date());
-  // const [waterDate, setWaterDate] = useState(new Date());
-
-
+  const [dateReceived, setDateReceived] = useState(new Date());
+  const [waterDate, setWaterDate] = useState(new Date());
 
   const nameChangeHandler = (text) => {
     setName(text);
   };
   const typeChangeHandler = (text) => {
-    setType(text);ß
+    setType(text);
   };
   const imageChangeHandler = (text) => {
     setImage(text);
@@ -52,9 +44,30 @@ const EditPlantScreen = props => {
     setWaterDate(currentDate);
   };
 
-  const submitHandler = useCallback(() => {
-    console.log('submitted');
-  }, []);
+  const dispatch = useDispatch();
+
+  const submitHandler = useCallback(async () => {
+    if (editedPlant) {
+      await dispatch(plantsActions.updatePlant(
+        plantId,
+        name,
+        type,
+        image,
+        format(dateReceived, 'MM/dd/yyyy'),
+        format(waterDate, 'MM/dd/yyyy'),
+        notes
+      ))
+    } else {
+      await dispatch(plantsActions.addPlant(
+        name,
+        type,
+        image,
+        format(dateReceived, 'MM/dd/yyyy'),
+        format(waterDate, 'MM/dd/yyyy'),
+        notes
+      ))
+    }
+  }, [dispatch, plantId]);
 
   useEffect(() => {
     props.navigation.setParams({'submit': submitHandler})
@@ -98,12 +111,7 @@ const EditPlantScreen = props => {
           style={styles.textInput}
           onChangeText={notesChangeHandler}
           value={notes}
-
         />
-        {/* <Button 
-          onPress={savePlantHandler}
-          title='Save Plant' 
-        /> */}
       </View>
     </ScrollView>
   );
@@ -128,7 +136,6 @@ EditPlantScreen.navigationOptions = navData => {
     )
   };
 };
-
 
 export default EditPlantScreen
 

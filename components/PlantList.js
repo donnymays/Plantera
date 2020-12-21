@@ -16,7 +16,7 @@ const PlantList = props => {
       <Plant
         name={itemData.item.name}
         type={itemData.item.type}
-        imageUrl={itemData.item.imageUrl}
+        image={itemData.item.image}
         dateReceived={itemData.item.dateReceived}
         waterDate={itemData.item.waterDate}
         notes={itemData.item.notes}

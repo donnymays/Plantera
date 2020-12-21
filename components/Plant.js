@@ -15,7 +15,7 @@ const Plant = props => {
         <TouchableCmp onPress={() =>{props.onSelectPlant}} useForeground>
           <View>
             <View style={styles.imageContainer}>
-              <Image style={styles.image} source={{ uri: props.imageUrl }} />
+              <Image style={styles.image} source={{ uri: props.image }} />
             </View>
             <View style={styles.plantData}>
               <BoldText style={styles.name}>{props.name}</BoldText>

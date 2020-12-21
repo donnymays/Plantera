@@ -46,7 +46,7 @@ const PlantDetailsScreen = props => {
   return (
     <View style={styles.screen}>
       <View style={styles.imageContainer} >
-        {/* <Image style={styles.image} source={{ uri: selectedPlant.imageUrl }} /> */}
+        {/* <Image style={styles.image} source={{ uri: selectedPlant.image }} /> */}
       </View>
       <View>
         <BoldText>{selectedPlant.type}</BoldText>

@@ -22,7 +22,7 @@ const plantsReducer = (state = initialState, action) => {
         action.plantData.id,
         action.plantData.name,
         action.plantData.type,
-        action.plantData.imageUrl,
+        action.plantData.image,
         action.plantData.dateReceived,
         action.plantData.waterDate,
         action.plantData.notes
@@ -40,7 +40,7 @@ const plantsReducer = (state = initialState, action) => {
         action.pid,
         action.plantData.name,
         action.plantData.type,
-        action.plantData.imageUrl,
+        action.plantData.image,
         action.plantData.dateReceived,
         action.plantData.waterDate,
         action.plantData.notes

@@ -46,7 +46,7 @@ const NewPlantScreen = props => {
       id: new Date().toString(),
       name: plantNameValue, 
       type: plantTypeValue, 
-      imageUrl: plantImageValue, 
+      image: plantImageValue, 
       dateReceived: format(dateReceivedValue, 'MM/dd/yyyy'), 
       waterDate: format(waterDateValue, 'MM/dd/yyyy'), 
       notes: plantNotesValue 

@@ -43,4 +43,3 @@ const styles3 = StyleSheet.create({
     fontFamily: 'open-sans-italic'
   }
 });
-

@@ -7,7 +7,6 @@ export const ADD_PLANT = 'ADD_PLANT';
 export const SET_PLANTS = 'SET_PLANTS';
 export const UPDATE_PLANT = 'UPDATE_PLANT'
 
-
 export const toggleFavorite = (id) => {
   return { type: TOGGLE_FAVORITE, plantId: id }
 };
@@ -24,19 +23,19 @@ export const fetchPlants = () => {
       const resData = await response.json();
       const loadedPlants = [];
   
-        for (const key in resData) {
-          loadedPlants.push(
-            new Plant(
-              key,
-              resData[key].name,
-              resData[key].type,
-              resData[key].imageUrl,
-              resData[key].dateReceived,
-              resData[key].waterDate,
-              resData[key].notes
-            )
-          );
-        }
+      for (const key in resData) {
+        loadedPlants.push(
+          new Plant(
+            key,
+            resData[key].name,
+            resData[key].type,
+            resData[key].image,
+            resData[key].dateReceived,
+            resData[key].waterDate,
+            resData[key].notes
+          )
+        );
+      }
 
       dispatch({ type: SET_PLANTS, plants: loadedPlants });
     } catch (err) {
@@ -46,7 +45,7 @@ export const fetchPlants = () => {
 };
 
 export const addPlant = (plant) => {
-  const { name, type, imageUrl, dateReceived, waterDate, notes } = plant
+  const { name, type, image, dateReceived, waterDate, notes } = plant
   return async dispatch => {
     const response = await fetch('https://plantera-46325-default-rtdb.firebaseio.com/plants.json', {
       method: 'POST',
@@ -56,7 +55,7 @@ export const addPlant = (plant) => {
       body: JSON.stringify({
         name,
         type,
-        imageUrl,
+        image,
         dateReceived,
         waterDate,
         notes
@@ -71,7 +70,7 @@ export const addPlant = (plant) => {
         id: resData.name,
         name,
         type,
-        imageUrl,
+        image,
         dateReceived,
         waterDate,
         notes
@@ -80,8 +79,7 @@ export const addPlant = (plant) => {
   };
 };
 
-export const updatePlant = (id, name, type, imageUrl, dateReceived, waterDate, notes) => {
-  // const { name, type, imageUrl, dateReceived, waterDate, notes } = plant
+export const updatePlant = (id, name, type, image, dateReceived, waterDate, notes) => {
   return async dispatch => {
     const response = await fetch(
       `https://plantera-46325-default-rtdb.firebaseio.com/plants/${id}.json`,
@@ -93,7 +91,7 @@ export const updatePlant = (id, name, type, imageUrl, dateReceived, waterDate, n
         body: JSON.stringify({
         name,
         type,
-        imageUrl,
+        image,
         dateReceived,
         waterDate,
         notes
@@ -108,10 +106,10 @@ export const updatePlant = (id, name, type, imageUrl, dateReceived, waterDate, n
     dispatch({
       type: UPDATE_PLANT,
       pid: id,
-      planttData: {
+      plantData: {
         name,
         type,
-        imageUrl,
+        image,
         dateReceived,
         waterDate,
         notes

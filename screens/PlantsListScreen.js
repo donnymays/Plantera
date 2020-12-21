@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, View, ActivityIndicator, Platform } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
@@ -10,22 +10,41 @@ import { DefaultText } from '../components/Text';
 
 const PlantsListScreen = props => {  
   const [isLoading, setIsLoading] = useState(false)
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [error, setError] = useState();
   const plants = useSelector(state => state.plants.plants);
   const dispatch = useDispatch();
 
-useEffect(() => {
-  const loadPlants = async () => {
-    setIsLoading(true);
-    await dispatch(plantsActions.fetchPlants());
-    setIsLoading(false);
-  };
-  loadPlants();
-}, [dispatch]);
+
+  const loadPlants = useCallback(async () => {
+    setError(null);
+    setIsRefreshing(true);
+    try {
+      await dispatch(plantsActions.fetchPlants());
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsRefreshing(false);
+  }, [dispatch, setIsLoading, setError]);
 
   useEffect(() => {
-    dispatch(plantsActions.fetchPlants());
-  }, [dispatch]);
+    const willFocusSub = props.navigation.addListener(
+      'willFocus',
+      loadPlants
+    );
+    return () => {
+      willFocusSub.remove();
+    };
+  }, [loadPlants]);
 
+  useEffect(() => {
+    setIsLoading(true);
+    loadPlants().then(() => {
+      setIsLoading(false);
+    });
+  }, [dispatch, loadPlants]);
+  
+  
   if (isLoading) {
     return(
       <View style={styles.centered}>
@@ -81,6 +100,6 @@ const styles = StyleSheet.create({
   centered: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   }
 })
