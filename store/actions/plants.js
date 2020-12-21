@@ -147,6 +147,5 @@ export const waterPlant = (id) => {
         waterDate: updatedWaterDate
       }
     });
-    console.log(updatedWaterDate);
   };
 };

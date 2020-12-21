@@ -11,7 +11,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const PlantDetailsScreen = props => {
   const plantId = props.navigation.getParam('plantId');
-  console.log(plantId);
   const plants = useSelector(state => state.plants.plants)
   const selectedPlant = plants.find(plant => plant.id === plantId);
   const currentPlantIsFavorite = useSelector(state => 
@@ -27,9 +26,14 @@ const PlantDetailsScreen = props => {
     dispatch(toggleFavorite(plantId));
   }, [dispatch, plantId]);
 
-  const editPlantHandler = id => {
-    props.navigation.navigate('EditPlant', { plantId: id });
-  };
+  const editPlantHandler = plantId => {
+    props.navigation.navigate({
+      routeName: 'EditPlant', 
+      params: { 
+        plantId: plantId 
+      }
+    });
+  }
 
   useEffect(() => {
     props.navigation.setParams({ toggleFav: toggleFavoriteHandler });
