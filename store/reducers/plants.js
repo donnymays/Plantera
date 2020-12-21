@@ -53,7 +53,6 @@ const plantsReducer = (state = initialState, action) => {
         favoritePlants: state.favoritePlants
       };
 
-    
     case TOGGLE_FAVORITE:
       const existingIndex = state.favoritePlants.findIndex(
         plant => plant.id === action.plantId

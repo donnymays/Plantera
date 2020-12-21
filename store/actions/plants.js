@@ -1,8 +1,12 @@
 import Plant from '../../models/plant';
+import { format } from 'date-fns';
+import { useState } from 'react';
+
 export const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
 export const ADD_PLANT = 'ADD_PLANT';
 export const SET_PLANTS = 'SET_PLANTS';
 export const UPDATE_PLANT = 'UPDATE_PLANT'
+
 
 export const toggleFavorite = (id) => {
   return { type: TOGGLE_FAVORITE, plantId: id }
@@ -76,8 +80,8 @@ export const addPlant = (plant) => {
   };
 };
 
-export const updatePlant = (plant) => {
-  const { name, type, imageUrl, dateReceived, waterDate, notes } = plant
+export const updatePlant = (id, name, type, imageUrl, dateReceived, waterDate, notes) => {
+  // const { name, type, imageUrl, dateReceived, waterDate, notes } = plant
   return async dispatch => {
     const response = await fetch(
       `https://plantera-46325-default-rtdb.firebaseio.com/plants/${id}.json`,
@@ -113,5 +117,36 @@ export const updatePlant = (plant) => {
         notes
       }
     });
+  };
+};
+
+export const waterPlant = (id) => {
+  const updatedWaterDate = format(new Date(), 'MM/dd/yyyy')
+  return async dispatch => {
+    const response = await fetch(
+      `https://plantera-46325-default-rtdb.firebaseio.com/plants/${id}.json`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+        waterDate
+        })
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error('Something went wrong!');
+    }
+
+    dispatch({
+      type: UPDATE_PLANT,
+      pid: id,
+      planttData: {
+        waterDate: updatedWaterDate
+      }
+    });
+    console.log(updatedWaterDate);
   };
 };
