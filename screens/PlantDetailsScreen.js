@@ -26,11 +26,11 @@ const PlantDetailsScreen = props => {
     dispatch(toggleFavorite(plantId));
   }, [dispatch, plantId]);
 
-  const editPlantHandler = plantId => {
+  const editPlantHandler = id => {
     props.navigation.navigate({
       routeName: 'EditPlant', 
       params: { 
-        plantId: plantId 
+        plantId: id 
       }
     });
   }
@@ -62,7 +62,9 @@ const PlantDetailsScreen = props => {
         <Button 
           color={Colors.green}
           title='Edit Plant'
-          onPress={editPlantHandler}
+          onPress={() => {
+            editPlantHandler(selectedPlant.id)
+          }}
         />
       </View>
     </View>

@@ -18,10 +18,10 @@ const EditPlantScreen = props => {
   const [type, setType] = useState(editedPlant ? editedPlant.type : '');
   const [image, setImage] = useState(editedPlant ? editedPlant.image : '');
   const [notes, setNotes] = useState(editedPlant ? editedPlant.notes : '');
-  // const [dateReceived, setDateReceived] = useState(editedPlant ? editedPlant.dateReceived : new Date());
-  // const [waterDate, setWaterDate] = useState(editedPlant ? editedPlant.waterDate : new Date());
-  const [dateReceived, setDateReceived] = useState(new Date());
-  const [waterDate, setWaterDate] = useState(new Date());
+  const [dateReceived, setDateReceived] = useState(editedPlant ? editedPlant.dateReceived : new Date());
+  const [waterDate, setWaterDate] = useState(editedPlant ? editedPlant.waterDate : new Date());
+  // const [dateReceived, setDateReceived] = useState(new Date());
+  // const [waterDate, setWaterDate] = useState(new Date());
 
 
 
