@@ -50,8 +50,8 @@ const NewPlantScreen = props => {
       imageUrl: plantImageValue, 
       dateReceived: format(dateReceivedValue, 'MM/dd/yyyy'), 
       waterDate: format(waterDateValue, 'MM/dd/yyyy'), 
-      notes: plantNotesValue } 
-      // id, plantNameValue, plantTypeValue, plantImageValue, dateReceivedValue, waterDateValue, plantNotesValue
+      notes: plantNotesValue 
+    } 
     dispatch(plantsActions.addPlant(newPlant))
     props.navigation.navigate('PlantsList');
   };
