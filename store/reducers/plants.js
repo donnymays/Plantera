@@ -46,7 +46,7 @@ const plantsReducer = (state = initialState, action) => {
     };
 
     case WATER_PLANT:
-      const plantToBeWatered = state.plants.find(plant => plant.id === action.plantId);
+      const plantToBeWatered = state.plants.findIndex(plant => plant.id === action.plantId);
       return {
         ...state,
         plants: {
@@ -62,6 +62,5 @@ const plantsReducer = (state = initialState, action) => {
       return state;
   }
 }
-
 
 export default plantsReducer;

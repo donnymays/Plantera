@@ -6,7 +6,7 @@ import PLANTS from '../data/seed-data';
 import { Ionicons } from '@expo/vector-icons'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
-import { toggleFavorite } from '../store/actions/plants';
+import { toggleFavorite, waterPlant } from '../store/actions/plants';
 import { useSelector, useDispatch } from 'react-redux';
 
 const PlantDetailsScreen = props => {
@@ -17,6 +17,10 @@ const PlantDetailsScreen = props => {
     state.plants.favoritePlants.some(plant => plant.id === plantId)
   );
   const dispatch = useDispatch();
+
+  const waterPlantHandler = useCallback(() => {
+    dispatch(waterPlant(plantId));
+  }, [dispatch, plantId]);
 
   const toggleFavoriteHandler = useCallback(() => {
     dispatch(toggleFavorite(plantId));
@@ -33,7 +37,7 @@ const PlantDetailsScreen = props => {
   return (
     <View style={styles.screen}>
       <View style={styles.imageContainer} >
-        <Image style={styles.image} source={{ uri: selectedPlant.imageUrl }} />
+        {/* <Image style={styles.image} source={{ uri: selectedPlant.imageUrl }} /> */}
       </View>
       <View>
         <BoldText>{selectedPlant.type}</BoldText>
@@ -43,8 +47,8 @@ const PlantDetailsScreen = props => {
       <View>
         <Button 
           color={Colors.green}
-          title='Care Tips'
-          onPress={() => {}} 
+          title='Water'
+          onPress={waterPlantHandler} 
         />
         <Button 
           color={Colors.green}
@@ -59,10 +63,10 @@ const PlantDetailsScreen = props => {
 PlantDetailsScreen.navigationOptions = navigationData => {
   const plantId = navigationData.navigation.getParam('plantId');
   const plantName = navigationData.navigation.getParam('plantName');
-  // const selectedPlant = PLANTS.find(plant => plant.id === plantId)
+
   const toggleFavorite = navigationData.navigation.getParam('toggleFav');
   const isFavorite = navigationData.navigation.getParam('isFav');
-  // return console.log(selectedPlant);
+  
   return {
     headerTitle: plantName,
     headerRight: (

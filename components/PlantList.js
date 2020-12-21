@@ -10,6 +10,7 @@ import addDays from 'date-fns/addDays'
 const PlantList = props => {
     const favoritePlants = useSelector(state => state.plants.favoritePlants);
     
+    
     const renderPlantItem = itemData => {
       const isFavorite = favoritePlants.some(plant => plant.id === itemData.id);
     return (
@@ -30,7 +31,7 @@ const PlantList = props => {
             }
           });
         }}
-        onWaterPlant={waterPlant}
+        // onWaterPlant={waterPlant}
       />
     );   
   };
