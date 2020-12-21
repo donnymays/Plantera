@@ -41,7 +41,6 @@ const NewPlantScreen = props => {
 
   const dispatch = useDispatch();
 
-  
   const savePlantHandler = () => {
     const newPlant = { 
       id: new Date().toString(),

@@ -39,6 +39,7 @@ const PlantList = props => {
       
       <FlatList
         data={props.listData}
+        keyExtractor={item => item.id}
         renderItem={renderPlantItem}
         style={{width: '100%'}}
       />
