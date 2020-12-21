@@ -28,8 +28,8 @@ const PlantDetailsScreen = props => {
   }, [dispatch, plantId]);
 
   const editPlantHandler = id => {
-    props.navigation.navigate('EditPlant'), { plantId: id }
-  }
+    props.navigation.navigate('EditPlant', { plantId: id });
+  };
 
   useEffect(() => {
     props.navigation.setParams({ toggleFav: toggleFavoriteHandler });
