@@ -10,6 +10,7 @@ import PlantsListScreen from '../screens/PlantsListScreen';
 import PlantDetailsScreen from '../screens/PlantDetailsScreen';
 import NewPlantScreen from '../screens/NewPlantScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
+import EditPlantScreen from '../screens/EditPlantScreen';
 import CalendarScreen from '../screens/CalendarScreen';
 import { BoldText } from '../components/Text';
 import Colors from '../constants/Colors';
@@ -28,7 +29,8 @@ const defaultStackNavOptions = {
 
 const PlantsNavigator = createStackNavigator({
   PlantsList: PlantsListScreen,
-  PlantDetails: PlantDetailsScreen
+  PlantDetails: PlantDetailsScreen,
+  EditPlant: EditPlantScreen
 }, {
   defaultNavigationOptions: defaultStackNavOptions
 });

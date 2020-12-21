@@ -50,6 +50,17 @@ useEffect(() => {
 PlantsListScreen.navigationOptions = navData => {
   return {  
     headerTitle: 'Your Plants',
+    headerRight: (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="Menu"
+          iconName="ios-create"
+          onPress={() => {
+            navData.navigation.navigate('EditPlant');
+          }}
+        />
+      </HeaderButtons>
+    ),
     headerLeft: (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item

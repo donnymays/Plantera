@@ -27,6 +27,10 @@ const PlantDetailsScreen = props => {
     dispatch(toggleFavorite(plantId));
   }, [dispatch, plantId]);
 
+  const editPlantHandler = id => {
+    props.navigation.navigate('EditPlant'), { plantId: id }
+  }
+
   useEffect(() => {
     props.navigation.setParams({ toggleFav: toggleFavoriteHandler });
   }, [toggleFavoriteHandler]);
@@ -53,8 +57,8 @@ const PlantDetailsScreen = props => {
         />
         <Button 
           color={Colors.green}
-          title='Notes'
-          onPress={() => {}}
+          title='Edit Plant'
+          onPress={editPlantHandler}
         />
       </View>
     </View>
@@ -64,7 +68,6 @@ const PlantDetailsScreen = props => {
 PlantDetailsScreen.navigationOptions = navigationData => {
   const plantId = navigationData.navigation.getParam('plantId');
   const plantName = navigationData.navigation.getParam('plantName');
-
   const toggleFavorite = navigationData.navigation.getParam('toggleFav');
   const isFavorite = navigationData.navigation.getParam('isFav');
   

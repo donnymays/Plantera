@@ -9,7 +9,6 @@ const Plant = props => {
     TouchableCmp = TouchableNativeFeedback;
   }
 
- 
   return (
     <View style={styles.plant}>
       <View style={styles.touchable}>
