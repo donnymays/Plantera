@@ -45,21 +45,23 @@ const plantsReducer = (state = initialState, action) => {
       };
     };
 
-    case WATER_PLANT:
-      const plantToBeWatered = state.plants.findIndex(plant => plant.id === action.plantId);
-      return {
-        ...state,
-        plants: {
-          ...state.plants,
-          [plantToBeWatered]: {
-            ...state.plants[plantToBeWatered],
-            waterDate: format(new Date(), 'MM/dd/yyy')
-          }
-        }
-      }
+    // case WATER_PLANT:
+    //   const plantToBeWatered = state.plants.findIndex(plant => plant.id === action.plantId);
+    //   const {  }
+    //   return {
+    //     ...state,
+    //     plants: {
+    //       ...state.plants,
+    //       [plantToBeWatered]: {
+    //         ...state.plants[plantToBeWatered],
+    //         waterDate: format(new Date(), 'MM/dd/yyy')
+    //       }
+    //     },
+    //     favoritePlants: favoritePlants
+    //   }
     
       default:
-      return state;
+        return state;
   }
 }
 
