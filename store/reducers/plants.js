@@ -1,4 +1,4 @@
-import { TOGGLE_FAVORITE, ADD_PLANT, WATER_PLANT } from '../actions/plants'
+import { TOGGLE_FAVORITE, ADD_PLANT, WATER_PLANT, SET_PLANTS } from '../actions/plants'
 import PLANTS from '../../data/seed-data';
 import Plant from '../../models/plant';
 import { format } from  'date-fns';
@@ -11,6 +11,12 @@ const initialState = {
 
 const plantsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_PLANTS:
+      return {
+        plants: action.plants,
+        favoritePlants: state.favoritePlants
+      }
+
     case ADD_PLANT:
       const newPlant = new Plant(
         action.plantData.id,
@@ -22,8 +28,8 @@ const plantsReducer = (state = initialState, action) => {
         action.plantData.notes
       );
       return {
-        ...state,
-        plants: state.plants.concat(newPlant)
+        plants: state.plants.concat(newPlant),
+        favoritePlants: state.favoritePlants
       };
     
     case TOGGLE_FAVORITE:
