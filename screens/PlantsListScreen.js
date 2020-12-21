@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyleSheet, Text, View, FlatList, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
 import PlantList from '../components/PlantList'
@@ -16,7 +16,7 @@ const PlantsListScreen = props => {
 useEffect(() => {
   const loadPlants = async () => {
     setIsLoading(true);
-    await dispatch(plantsActions.fetchProducts());
+    await dispatch(plantsActions.fetchPlants());
     setIsLoading(false);
   };
   loadPlants();
@@ -25,7 +25,7 @@ useEffect(() => {
   useEffect(() => {
     dispatch(plantsActions.fetchPlants());
   }, [dispatch]);
-   
+
   if (isLoading) {
     return(
       <View style={styles.centered}>

@@ -1,8 +1,8 @@
 import Plant from '../../models/plant';
-
 export const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
 export const ADD_PLANT = 'ADD_PLANT';
 export const SET_PLANTS = 'SET_PLANTS';
+export const UPDATE_PLANT = 'UPDATE_PLANT'
 
 export const toggleFavorite = (id) => {
   return { type: TOGGLE_FAVORITE, plantId: id }
@@ -10,26 +10,34 @@ export const toggleFavorite = (id) => {
 
 export const fetchPlants = () => {
   return async dispatch => {
-    const response = await fetch('https://plantera-46325-default-rtdb.firebaseio.com/plants.json');
-    const resData = await response.json();
-    
-    const loadedPlants = [];
-
-      for (const key in resData) {
-        loadedPlants.push(
-          new Plant(
-            key,
-            resData[key].name,
-            resData[key].type,
-            resData[key].imageUrl,
-            resData[key].dateReceived,
-            resData[key].waterDate,
-            resData[key].notes
-          )
-        );
+    try {
+      const response = await fetch('https://plantera-46325-default-rtdb.firebaseio.com/plants.json');
+      
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
       }
-    console.log(loadedPlants);
-    dispatch({ type: SET_PLANTS, plants: loadedPlants });
+      
+      const resData = await response.json();
+      const loadedPlants = [];
+  
+        for (const key in resData) {
+          loadedPlants.push(
+            new Plant(
+              key,
+              resData[key].name,
+              resData[key].type,
+              resData[key].imageUrl,
+              resData[key].dateReceived,
+              resData[key].waterDate,
+              resData[key].notes
+            )
+          );
+        }
+
+      dispatch({ type: SET_PLANTS, plants: loadedPlants });
+    } catch (err) {
+      throw err;
+    }
   };
 };
 
@@ -64,6 +72,46 @@ export const addPlant = (plant) => {
         waterDate,
         notes
       } 
+    });
+  };
+};
+
+export const updatePlant = (plant) => {
+  const { name, type, imageUrl, dateReceived, waterDate, notes } = plant
+  return async dispatch => {
+    const response = await fetch(
+      `https://plantera-46325-default-rtdb.firebaseio.com/plants/${id}.json`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+        name,
+        type,
+        imageUrl,
+        dateReceived,
+        waterDate,
+        notes
+        })
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error('Something went wrong!');
+    }
+
+    dispatch({
+      type: UPDATE_PLANT,
+      pid: id,
+      planttData: {
+        name,
+        type,
+        imageUrl,
+        dateReceived,
+        waterDate,
+        notes
+      }
     });
   };
 };

@@ -1,4 +1,4 @@
-import { TOGGLE_FAVORITE, ADD_PLANT, WATER_PLANT, SET_PLANTS } from '../actions/plants'
+import { TOGGLE_FAVORITE, ADD_PLANT, WATER_PLANT, SET_PLANTS, UPDATE_PLANT } from '../actions/plants'
 import PLANTS from '../../data/seed-data';
 import Plant from '../../models/plant';
 import { format } from  'date-fns';
@@ -32,6 +32,28 @@ const plantsReducer = (state = initialState, action) => {
         favoritePlants: state.favoritePlants
       };
     
+    case UPDATE_PLANT:
+      const plantIndex = state.plants.findIndex(
+        plant => plant.id === action.pid
+      );
+      const updatedPlant = new Plant(
+        action.pid,
+        action.plantData.name,
+        action.plantData.type,
+        action.plantData.imageUrl,
+        action.plantData.dateReceived,
+        action.plantData.waterDate,
+        action.plantData.notes
+      );
+      const updatedPlants = [...state.plants];
+      updatedPlants[plantIndex] = updatedPlant;
+      return {
+        ...state,
+        plants: updatedPlants,
+        favoritePlants: state.favoritePlants
+      };
+
+    
     case TOGGLE_FAVORITE:
       const existingIndex = state.favoritePlants.findIndex(
         plant => plant.id === action.plantId
@@ -50,21 +72,6 @@ const plantsReducer = (state = initialState, action) => {
         favoritePlants: state.favoritePlants.concat(plant) 
       };
     };
-
-    // case WATER_PLANT:
-    //   const plantToBeWatered = state.plants.findIndex(plant => plant.id === action.plantId);
-    //   const {  }
-    //   return {
-    //     ...state,
-    //     plants: {
-    //       ...state.plants,
-    //       [plantToBeWatered]: {
-    //         ...state.plants[plantToBeWatered],
-    //         waterDate: format(new Date(), 'MM/dd/yyy')
-    //       }
-    //     },
-    //     favoritePlants: favoritePlants
-    //   }
     
       default:
         return state;

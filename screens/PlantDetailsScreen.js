@@ -6,20 +6,22 @@ import PLANTS from '../data/seed-data';
 import { Ionicons } from '@expo/vector-icons'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
-import { toggleFavorite, waterPlant } from '../store/actions/plants';
+import { toggleFavorite, updatePlant } from '../store/actions/plants';
 import { useSelector, useDispatch } from 'react-redux';
 
 const PlantDetailsScreen = props => {
   const plantId = props.navigation.getParam('plantId');
-  const availablePlants = useSelector(state => state.plants.plants)
-  const selectedPlant = availablePlants.find(plant => plant.id === plantId);
+  const plants = useSelector(state => state.plants.plants)
+  const selectedPlant = plants.find(plant => plant.id === plantId);
   const currentPlantIsFavorite = useSelector(state => 
     state.plants.favoritePlants.some(plant => plant.id === plantId)
   );
   const dispatch = useDispatch();
 
+  
+
   const waterPlantHandler = useCallback(() => {
-    dispatch(waterPlant(plantId));
+    dispatch(upDatePlant(plantId));
   }, [dispatch, plantId]);
 
   const toggleFavoriteHandler = useCallback(() => {
