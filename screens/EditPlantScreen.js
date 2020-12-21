@@ -5,7 +5,8 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '../constants/Colors'
-
+import { format } from 'date-fns';
+import parse from 'date-fns/parse'
 
 const EditPlantScreen = props => {
   const plantId = props.navigation.getParam('plantId');
@@ -18,8 +19,13 @@ const EditPlantScreen = props => {
   const [type, setType] = useState(editedPlant ? editedPlant.type : '');
   const [image, setImage] = useState(editedPlant ? editedPlant.image : '');
   const [notes, setNotes] = useState(editedPlant ? editedPlant.notes : '');
-  const [dateReceived, setDateReceived] = useState(editedPlant ? editedPlant.dateReceived : new Date());
-  const [waterDate, setWaterDate] = useState(editedPlant ? editedPlant.waterDate : new Date());
+  // const [dateReceived, setDateReceived] = useState(
+  //   editedPlant ? format(editedPlant.dateReceived, '' : new Date()
+  // );
+  const [waterDate, setWaterDate] = useState(editedPlant ? parse(editedPlant.waterDate, 'yyyy/MM/dd', new Date())  : new Date());
+  const [dateReceived, setDateReceived] = useState(editedPlant ? parse(editedPlant.dateReceived, 'yyyy/MM/dd', new Date())  : new Date());
+
+
   // const [dateReceived, setDateReceived] = useState(new Date());
   // const [waterDate, setWaterDate] = useState(new Date());
 
