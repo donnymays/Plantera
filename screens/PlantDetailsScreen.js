@@ -12,12 +12,10 @@ import { useSelector, useDispatch } from 'react-redux';
 const PlantDetailsScreen = props => {
   const plantId = props.navigation.getParam('plantId');
   const availablePlants = useSelector(state => state.plants.plants)
-  
   const selectedPlant = availablePlants.find(plant => plant.id === plantId);
   const currentPlantIsFavorite = useSelector(state => 
     state.plants.favoritePlants.some(plant => plant.id === plantId)
   );
- 
   const dispatch = useDispatch();
 
   const toggleFavoriteHandler = useCallback(() => {

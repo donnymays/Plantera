@@ -20,4 +20,10 @@ export const addPlant = (plant) => {
       notes: notes
      } 
   }
-}
+};
+  
+export const WATER_PLANT = 'WATER_PLANT';
+
+export const waterPlant = (id) => {
+  return { type: WATER_PLANT, plantId: id}
+};

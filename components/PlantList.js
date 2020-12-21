@@ -1,17 +1,17 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { View, FlatList, StyleSheet, Text } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Plant from '../components/Plant';
+import { waterPlant } from '../store/actions/plants';
+import { format } from 'date-fns/formatRelative'
+import addDays from 'date-fns/addDays'
 
 
 const PlantList = props => {
-  // const favoritePlants = useSelector(state => state.plants.favoritePlants);
-  // if (favoritePlants.length > 0) {
-  //   const isFavorite = favoritePlants.some(plant => plant.id === itemData.id);
-  // };
-  const renderPlantItem = itemData => {
+    const favoritePlants = useSelector(state => state.plants.favoritePlants);
     
+    const renderPlantItem = itemData => {
+      const isFavorite = favoritePlants.some(plant => plant.id === itemData.id);
     return (
       <Plant
         name={itemData.item.name}
@@ -30,6 +30,7 @@ const PlantList = props => {
             }
           });
         }}
+        onWaterPlant={waterPlant}
       />
     );   
   };

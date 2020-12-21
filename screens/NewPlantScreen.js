@@ -6,16 +6,17 @@ import HeaderButton from '../components/HeaderButton';
 import * as plantsActions from '../store/actions/plants';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '../constants/Colors';
-import Plant from '../components/Plant';
+import { format } from 'date-fns';
 
-const NewPlantScreen = () => {
+
+const NewPlantScreen = props => {
   
   const [plantNameValue, setPlantNameValue] = useState('');
   const [plantTypeValue, setPlantTypeValue] = useState('');
   const [plantImageValue, setPlantImageValue] = useState('');
   const [plantNotesValue, setPlantNotesValue] = useState('');
-  const [dateReceivedValue, setDateReceivedValue] = useState(new Date(1598051730000));
-  const [waterDateValue, setWaterDateValue] = useState(new Date(1598051730000));
+  const [dateReceivedValue, setDateReceivedValue] = useState(new Date());
+  const [waterDateValue, setWaterDateValue] = useState(new Date());
 
   const plantNameChangeHandler = (text) => {
     setPlantNameValue(text);
@@ -29,11 +30,11 @@ const NewPlantScreen = () => {
   const plantNotesChangeHandler = (text) => {
     setPlantNotesValue(text);
   };
-  const onDateReceivedChangeHandler = (selectedDate) => {
+  const onDateReceivedChangeHandler = (event, selectedDate) => {
     const currentDate = selectedDate || dateReceivedValue;
     setDateReceivedValue(currentDate);
   };
-  const onWaterDateChangeHandler = (selectedDate) => {
+  const onWaterDateChangeHandler = (event, selectedDate) => {
     const currentDate = selectedDate || waterDateValue;
     setWaterDateValue(currentDate);
   };
@@ -47,12 +48,12 @@ const NewPlantScreen = () => {
       name: plantNameValue, 
       type: plantTypeValue, 
       imageUrl: plantImageValue, 
-      dateReceived: dateReceivedValue.toString(), 
-      waterDate: waterDateValue.toString(), 
+      dateReceived: format(dateReceivedValue, 'MM/dd/yyyy'), 
+      waterDate: format(waterDateValue, 'MM/dd/yyyy'), 
       notes: plantNotesValue } 
       // id, plantNameValue, plantTypeValue, plantImageValue, dateReceivedValue, waterDateValue, plantNotesValue
     dispatch(plantsActions.addPlant(newPlant))
-    // console.log(newPlant);
+    props.navigation.navigate('PlantsList');
   };
 
   return (

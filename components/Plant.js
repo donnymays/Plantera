@@ -8,7 +8,8 @@ const Plant = props => {
   if (Platform.OS === "android" && Platform.Version >= 21) {
     TouchableCmp = TouchableNativeFeedback;
   }
-  
+
+ 
   return (
     <View style={styles.plant}>
       <View style={styles.touchable}>
@@ -30,6 +31,7 @@ const Plant = props => {
               <Button
                 color={Colors.green}
                 title="Water"
+                onPress={props.onWaterPlant}
               />
             </View>
           </View>
