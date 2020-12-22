@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const PlantDetailsScreen = props => {
   const plantId = props.navigation.getParam('plantId');
-  const plants = useSelector(state => state.plants.plants)
+  const plants = PLANTS
   const selectedPlant = plants.find(plant => plant.id === plantId);
   const currentPlantIsFavorite = useSelector(state => 
     state.plants.favoritePlants.some(plant => plant.id === plantId)
@@ -46,14 +46,14 @@ const PlantDetailsScreen = props => {
   return (
     <View style={styles.screen}>
       <View style={styles.imageContainer} >
-        {/* <Image style={styles.image} source={{ uri: selectedPlant.image }} /> */}
+        <Image style={styles.image} source={{ uri: selectedPlant.image }} />
       </View>
-      <View>
+      <View style={styles.dataContainer}>
         <BoldText>{selectedPlant.type}</BoldText>
         <Text>Growing Together Since: {selectedPlant.dateReceived}</Text>
         <Text>Last Watered on: {selectedPlant.waterDate}</Text>
       </View>
-      <View>
+      <View style={styles.buttonContainer}>
         <Button 
           color={Colors.green}
           title='Water'
@@ -107,5 +107,14 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     overflow: "hidden",
+  },
+  dataContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 15
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   }
 })

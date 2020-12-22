@@ -7,17 +7,16 @@ import PlantList from '../components/PlantList'
 import * as plantsActions from '../store/actions/plants';
 import Colors from '../constants/Colors';
 import { DefaultText } from '../components/Text';
+import PLANTS from '../data/seed-data';
 
 const PlantsListScreen = props => {  
-  const [isLoading, setIsLoading] = useState(false)
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const [error, setError] = useState();
-  const plants = useSelector(state => state.plants.plants);
-  const dispatch = useDispatch();
+  const plants = PLANTS
+  // const plants = useSelector(state => state.plants.plants);
+  // const dispatch = useDispatch();
   
-  useEffect(() => {
-    dispatch(plantsActions.fetchPlants());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(plantsActions.fetchPlants());
+  // }, [dispatch]);
 
   // const loadPlants = useCallback(async () => {
   //   setError(null);
@@ -48,21 +47,21 @@ const PlantsListScreen = props => {
   // }, [dispatch, loadPlants]);
   
   
-  if (isLoading) {
-    return(
-      <View style={styles.centered}>
-        <ActivityIndicator size='large' color={Colors.green} />
-      </View>
-    )
-  }
+  // if (isLoading) {
+  //   return(
+  //     <View style={styles.centered}>
+  //       <ActivityIndicator size='large' color={Colors.green} />
+  //     </View>
+  //   )
+  // }
 
-  if (!isLoading && plants.length === 0) {
-    return (
-      <View style={styles.centered}>
-      <DefaultText>No Plants found.  Try adding some.</DefaultText>
-    </View>
-    )
-  }
+  // if (!isLoading && plants.length === 0) {
+  //   return (
+  //     <View style={styles.centered}>
+  //     <DefaultText>No Plants found.  Try adding some.</DefaultText>
+  //   </View>
+  //   )
+  // }
 
   return (
       <PlantList navigation={props.navigation} listData={plants}/> 

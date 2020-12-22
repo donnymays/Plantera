@@ -18,7 +18,7 @@ const EditPlantScreen = props => {
     state => state.plants.plants.find(plant => plant.id === plantId)
   );
  
-  const [name, setName] = useState('joe');
+  const [name, setName] = useState(editedPlant ? editedPlant.name : '');
   const [type, setType] = useState(editedPlant ? editedPlant.type : '');
   const [image, setImage] = useState(editedPlant ? editedPlant.image : '');
   const [notes, setNotes] = useState(editedPlant ? editedPlant.notes : '');
