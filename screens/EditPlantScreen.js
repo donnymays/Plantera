@@ -49,20 +49,20 @@ const EditPlantScreen = props => {
 
   const dispatch = useDispatch();
 
-  const submitHandler = useCallback(async () => {
+  const submitHandler = useCallback( () => {
     
     if (editedPlant) {
-      await dispatch(plantsActions.updatePlant(
+     dispatch(plantsActions.updatePlant(
         plantId,
         name,
         type,
         image,
         format(dateReceived, 'MM/dd/yyyy'),
-        format(waterDate, 'MM/dd/yyyy'), 
+        format(waterDate, 'MM/dd/yyyy'),
         notes
       ))
     } else {
-      await dispatch(plantsActions.addPlant(
+       dispatch(plantsActions.addPlant(
         name,
         type,
         image,
@@ -72,7 +72,7 @@ const EditPlantScreen = props => {
       ))
     }
     props.navigation.goBack();
-  }, [dispatch, plantId]);
+  }, [dispatch, plantId, name, type, image, dateReceived, waterDate, notes]);
 
   useEffect(() => {
     props.navigation.setParams({ submit: submitHandler })

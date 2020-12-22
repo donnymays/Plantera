@@ -5,7 +5,7 @@ import { format } from  'date-fns';
 
 
 const initialState = {
-  plants: [], 
+  plants: PLANTS, 
   favoritePlants: []
 };
 
@@ -37,6 +37,7 @@ const plantsReducer = (state = initialState, action) => {
       const plantIndex = state.plants.findIndex(
         plant => plant.id === action.pid
       );
+      
       const updatedPlant = new Plant(
         action.pid,
         action.plantData.name,
@@ -46,13 +47,29 @@ const plantsReducer = (state = initialState, action) => {
         action.plantData.waterDate,
         action.plantData.notes
       );
+    
       const updatedPlants = [...state.plants];
       updatedPlants[plantIndex] = updatedPlant;
+      console.log('updatedPlants');
       return {
         ...state,
         plants: updatedPlants,
         favoritePlants: state.favoritePlants
       };
+
+    case WATER_PLANT:
+      const plantIndex = state.plants.findIndex(
+        plant => plant.id === action.pid
+      );
+      const wateredPlant = new Plant(
+        action.pid,
+        state.plants.name,
+        state.plants.type,
+        state.plants.image,
+        state.plants.dateReceived,
+        action.plantData.waterDate,
+        action.plantData.notes
+      )
 
     case TOGGLE_FAVORITE:
       const existingIndex = state.favoritePlants.findIndex(

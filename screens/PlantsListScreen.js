@@ -10,8 +10,8 @@ import { DefaultText } from '../components/Text';
 import PLANTS from '../data/seed-data';
 
 const PlantsListScreen = props => {  
-  const plants = PLANTS
-  // const plants = useSelector(state => state.plants.plants);
+  
+  const plants = useSelector(state => state.plants.plants);
   // const dispatch = useDispatch();
   
   // useEffect(() => {
