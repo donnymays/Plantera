@@ -47,7 +47,9 @@ const EditPlantScreen = props => {
   const dispatch = useDispatch();
 
   const submitHandler = useCallback(async () => {
-    console.log('submitted');
+    if (typeof editedPlant != 'undefined') {
+      console.log('somethings amiss')
+    }
     if (editedPlant) {
       await dispatch(plantsActions.updatePlant(
         plantId,

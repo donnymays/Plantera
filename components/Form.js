@@ -1,28 +1,155 @@
-import React, { useRef, useState } from "react"
-import { SafeAreaView, Button, View, Text } from "react-native"
+import React, { useState, useEffect, useCallback, useRef } from 'react'
+import { SafeAreaView, Button, View, Text, TextInput, StyleSheet } from "react-native"
+import { useSelector, useDispatch } from 'react-redux';
 import Wizard from "react-native-wizard"
+import  Colors  from "../constants/Colors";
+import { format } from 'date-fns';
+import * as plantsActions from '../store/actions/plants';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
-export default ()=>{
+const Form = props => {
   const wizard = useRef()
   const [isFirstStep, setIsFirstStep] = useState()
   const [isLastStep, setIsLastStep] = useState()
   const [currentStep, setCurrentStep] = useState(0)
+
+  const plantId = props.navigation.getParam('plantId');
+  const editedPlant = useSelector(
+    state => state.plants.plants.find(plant => plant.id === plantId)
+  );
+
+  const [name, setName] = useState(editedPlant ? editedPlant.name : '');
+  const [type, setType] = useState(editedPlant ? editedPlant.type : '');
+  const [image, setImage] = useState(editedPlant ? editedPlant.image : '');
+  const [notes, setNotes] = useState(editedPlant ? editedPlant.notes : '');
+  const [dateReceived, setDateReceived] = useState(new Date(1598051730000));
+  const [waterDate, setWaterDate] = useState(new Date(1598051730000));
+  
+  const nameChangeHandler = (text) => {
+    setName(text);
+  };
+  const typeChangeHandler = (text) => {
+    setType(text);
+  };
+  const imageChangeHandler = (text) => {
+    setImage(text);
+  };
+  const notesChangeHandler = (text) => {
+    setNotes(text);
+  };
+  const onDateReceivedChangeHandler = (event, selectedDate) => {
+    const currentDate = selectedDate || dateReceived;
+    setDateReceived(currentDate);
+  };
+
+  const onWaterDateChangeHandler = (event, selectedDate) => {
+    const currentDate = selectedDate || waterDate;
+    setWaterDate(currentDate);
+  };
+
+  const dispatch = useDispatch();
+
+  const submitHandler = useCallback(async () => {
+    if (typeof editedPlant != 'undefined') {
+      console.log('somethings amiss')
+    }
+    if (editedPlant) {
+      await dispatch(plantsActions.updatePlant(
+        plantId,
+        name,
+        type,
+        image,
+        format(dateReceived, 'MM/dd/yyyy'),
+        format(waterDate, 'MM/dd/yyyy'), 
+        notes
+      ))
+    } else {
+      await dispatch(plantsActions.addPlant(
+        name,
+        type,
+        image,
+        format(dateReceived, 'MM/dd/yyyy'),
+        format(waterDate, 'MM/dd/yyyy'), 
+        notes
+      ))
+    }
+  }, [dispatch, plantId]);
+
+  useEffect(() => {
+    props.navigation.setParams({ submit: submitHandler })
+  }, [submitHandler])
   const stepList = [
     {
       content: (
-        <View style={{ width: 100, height: 100, backgroundColor: "#000" }}>
-          <Text style={{ color: "#FFF" }}>1. step</Text>
+        <View>
+          <Text style={styles.label}>This is where you can add a new plant!</Text>
+          <TextInput 
+            style={styles.textInput} 
+            onChangeText={nameChangeHandler}
+            value={name}
+          />
         </View>
       ),
     },
     {
-      content: <View style={{ width: 100, height: 100, backgroundColor: "#e04851" }} />,
+      content: (
+        <View>
+          <Text style={styles.label}>This is where you can choose your plant type</Text>
+          <TextInput 
+          style={styles.textInput} 
+          onChangeText={typeChangeHandler}
+          value={type}
+        />
+        </View>
+      ),
     },
     {
-      content: <View style={{ width: 100, height: 500, backgroundColor: "#9be07d" }} />,
+      content: (
+        <View>
+        <Text style={styles.label}>This is where you can enter your plant image plachodler</Text>
+          <TextInput 
+          style={styles.textInput} 
+          onChangeText={imageChangeHandler}
+          value={image}
+        />
+        </View>
+      ),
     },
     {
-      content: <View style={{ width: 100, height: 100, backgroundColor: "#2634e0" }} />,
+      content: (
+        <View>
+        <Text style={styles.label}>When did you bring home your plant?</Text>
+        <DateTimePicker
+            display={'spinner'}
+            onChange={onDateReceivedChangeHandler}
+            value={dateReceived}
+        />
+        </View>
+      ),
+    },
+    {
+      content: (
+        <View>
+        <Text style={styles.label}>When did you last water your plant?</Text>
+          <DateTimePicker
+            display={'spinner'}
+            onChange={onWaterDateChangeHandler}
+            value={waterDate}
+          />
+        </View>
+      ),
+    },
+    {
+      content: (
+        <View>
+          <Text style={styles.label}>Would you like to add any note to your plant?</Text>
+          <TextInput 
+            style={styles.textInput}
+            onChangeText={notesChangeHandler}
+            value={notes}
+          />
+        </View>
+      ),
     },
   ]
   return (
@@ -77,3 +204,21 @@ export default ()=>{
     </View>
   )
 }
+
+export default Form;
+
+const styles = StyleSheet.create({
+  form: {
+    margin: 30
+  },
+  label: {
+    fontSize: 18,
+    marginBottom: 15
+  },
+  textInput: {
+    borderBottomColor: Colors.green,
+    borderBottomWidth: 1,
+    marginBottom: 15,
+    paddingVertical: 10
+  }
+});

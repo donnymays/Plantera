@@ -14,6 +14,7 @@ import EditPlantScreen from '../screens/EditPlantScreen';
 import CalendarScreen from '../screens/CalendarScreen';
 import { BoldText } from '../components/Text';
 import Colors from '../constants/Colors';
+import Form from '../components/Form';
 
 const defaultStackNavOptions = {
   headerStyle: {
@@ -91,9 +92,9 @@ const FavNavigator = createStackNavigator({
     }
   );
 
-  const NewPlantNavigator = createStackNavigator(
+  const FormNavigator = createStackNavigator(
     {
-      NewPlant: NewPlantScreen
+      Form: Form
     },
     {
       defaultNavigationOptions: defaultStackNavOptions
@@ -108,7 +109,7 @@ const FavNavigator = createStackNavigator({
           drawerLabel: 'Plants'
         }
       },
-      NewPlant: NewPlantNavigator
+      Form: FormNavigator
     },
     {
       contentOptions: {
