@@ -28,7 +28,8 @@ const defaultStackNavOptions = {
 }
 
 const PlantsNavigator = createStackNavigator({
-  PlantsList: PlantsListScreen,
+  Calendar: CalendarScreen,
+  // PlantsList: PlantsListScreen,
   PlantDetails: PlantDetailsScreen,
   EditPlant: EditPlantScreen
 }, {
@@ -108,7 +109,7 @@ const FavNavigator = createStackNavigator({
           drawerLabel: 'Plants'
         }
       },
-      NewPlant: NewPlantNavigator
+      Calendar: CalendarScreen
     },
     {
       contentOptions: {

@@ -8,6 +8,8 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
 import { toggleFavorite, waterPlant } from '../store/actions/plants';
 import { useSelector, useDispatch } from 'react-redux';
+import addDays from 'date-fns/addDays'
+import format from 'date-fns/format'
 
 const PlantDetailsScreen = props => {
   const plantId = props.navigation.getParam('plantId');
@@ -33,6 +35,13 @@ const PlantDetailsScreen = props => {
   const toggleFavoriteHandler = useCallback(() => {
     dispatch(toggleFavorite(plantId));
   }, [dispatch, plantId]);
+
+  const nextWaterDate = dateString=> {
+   const formattedWaterDate = new Date(dateString)
+   const nextWaterDate = addDays(formattedWaterDate, 7)
+   const formattedNextWaterDate = format(nextWaterDate, ('MM/dd/yyyy'))
+   return (formattedNextWaterDate);
+  };
 
   const editPlantHandler = id => {
     props.navigation.navigate({
@@ -62,6 +71,7 @@ const PlantDetailsScreen = props => {
         <View style={styles.datesContainer}>
           <DefaultText>Growing Together Since: {selectedPlant.dateReceived}</DefaultText>
           <DefaultText>Last Watered on: {selectedPlant.waterDate}</DefaultText>
+          <DefaultText>Next Water on: {nextWaterDate(selectedPlant.waterDate)}</DefaultText>
         </View>
       </View>
       <View style={styles.buttonContainer}>

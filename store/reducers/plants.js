@@ -3,7 +3,6 @@ import PLANTS from '../../data/seed-data';
 import Plant from '../../models/plant';
 import { format } from  'date-fns';
 
-
 const initialState = {
   plants: PLANTS, 
   favoritePlants: []

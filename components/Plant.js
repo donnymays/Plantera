@@ -1,13 +1,22 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableNativeFeedback, Platform, Button } from 'react-native';
 import Colors from '../constants/Colors';
-import {BoldText, DefaultText} from './Text'
+import {BoldText, DefaultText} from './Text';
+import addDays from 'date-fns/addDays'
+import format from 'date-fns/format'
 
 const Plant = props => {
   let TouchableCmp = TouchableOpacity;
   if (Platform.OS === "android" && Platform.Version >= 21) {
     TouchableCmp = TouchableNativeFeedback;
   }
+
+  const nextWaterDate = dateString=> {
+    const formattedWaterDate = new Date(dateString)
+    const nextWaterDate = addDays(formattedWaterDate, 7)
+    const formattedNextWaterDate = format(nextWaterDate, ('MM/dd/yyyy'))
+    return (formattedNextWaterDate);
+   };
 
   return (
     <View style={styles.plant}>
@@ -19,7 +28,7 @@ const Plant = props => {
             </View>
             <View style={styles.plantData}>
               <BoldText style={styles.name}>{props.name}</BoldText>
-              <DefaultText style={styles.waterDate}>Last Watered On: {props.waterDate}</DefaultText>
+              <DefaultText style={styles.waterDate}>Next Water Date: {nextWaterDate(props.waterDate)}</DefaultText>
             </View>
             <View style={styles.actions}>
               <Button
