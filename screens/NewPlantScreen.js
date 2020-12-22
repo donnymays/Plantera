@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Platform } from 'react'
 import { StyleSheet, Text, View, TextInput, ScrollView, Button } from 'react-native'
 import { useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
@@ -17,6 +17,8 @@ const NewPlantScreen = props => {
   const [plantNotesValue, setPlantNotesValue] = useState('');
   const [dateReceivedValue, setDateReceivedValue] = useState(new Date());
   const [waterDateValue, setWaterDateValue] = useState(new Date());
+  const [show, setShow] = useState(false)
+  
 
   const plantNameChangeHandler = (text) => {
     setPlantNameValue(text);
@@ -77,13 +79,13 @@ const NewPlantScreen = props => {
       />
       <Text style={styles.label}>When did you bring home your plant?</Text>
       <DateTimePicker
-        display={'spinner'}
+        display={'default'}
         onChange={onDateReceivedChangeHandler}
         value={dateReceivedValue}
       />
       <Text style={styles.label}>When did you last water your plant?</Text>
       <DateTimePicker
-        display={'spinner'}
+        display={'default'}
         onChange={onWaterDateChangeHandler}
         value={waterDateValue}
       />

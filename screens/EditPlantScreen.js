@@ -21,7 +21,7 @@ const EditPlantScreen = props => {
   const [notes, setNotes] = useState(editedPlant ? editedPlant.notes : '');
   const [dateReceived, setDateReceived] = useState(new Date(1598051730000));
   const [waterDate, setWaterDate] = useState(new Date(1598051730000));
-
+  
   const nameChangeHandler = (text) => {
     setName(text);
   };
@@ -34,11 +34,14 @@ const EditPlantScreen = props => {
   const notesChangeHandler = (text) => {
     setNotes(text);
   };
-  const onDateReceivedChangeHandler = (text) => {
-    setDateReceived(text);
+  const onDateReceivedChangeHandler = (event, selectedDate) => {
+    const currentDate = selectedDate || dateReceived;
+    setDateReceived(currentDate);
   };
-  const onWaterDateChangeHandler = (text) => {
-    setWaterDate(text);
+
+  const onWaterDateChangeHandler = (event, selectedDate) => {
+    const currentDate = selectedDate || waterDate;
+    setWaterDate(currentDate);
   };
 
   const dispatch = useDispatch();
@@ -50,8 +53,8 @@ const EditPlantScreen = props => {
         name,
         type,
         image,
-        dateReceived,
-        waterDate,
+        format(dateReceivedValue, 'MM/dd/yyyy'),
+        format(waterDateValue, 'MM/dd/yyyy'), 
         notes
       ))
     } else {
@@ -59,8 +62,8 @@ const EditPlantScreen = props => {
         name,
         type,
         image,
-        dateReceived,
-        waterDate,
+        format(dateReceivedValue, 'MM/dd/yyyy'),
+        format(waterDateValue, 'MM/dd/yyyy'), 
         notes
       ))
     }
@@ -92,17 +95,17 @@ const EditPlantScreen = props => {
           value={image}
         />
         <Text style={styles.label}>When did you bring home your plant?</Text>
-        <DateTimePicker
-           mode="date"
-          onChange={onDateReceivedChangeHandler}
-          value={format(dateReceived, 'MM/dd/yyyy')}
-        />
+          <DateTimePicker
+            display={'spinner'}
+            onChange={onDateReceivedChangeHandler}
+            value={dateReceived}
+          />
         <Text style={styles.label}>When did you last water your plant?</Text>
-        <DateTimePicker
-          mode="date"
-          onChange={onWaterDateChangeHandler}
-          value={format(waterDate, 'MM/dd/yyyy')}
-        />
+          <DateTimePicker
+            display={'spinner'}
+            onChange={onWaterDateChangeHandler}
+            value={waterDate}
+          />
         <Text style={styles.label}>Would you like to add any note to your plant?</Text>
         <TextInput 
           style={styles.textInput}
