@@ -10,12 +10,15 @@ import parse from 'date-fns/parse'
 import * as plantsActions from '../store/actions/plants';
 
 const EditPlantScreen = props => {
+
+
+  
   const plantId = props.navigation.getParam('plantId');
   const editedPlant = useSelector(
     state => state.plants.plants.find(plant => plant.id === plantId)
   );
  
-  const [name, setName] = useState(editedPlant ? editedPlant.name : '');
+  const [name, setName] = useState('joe');
   const [type, setType] = useState(editedPlant ? editedPlant.type : '');
   const [image, setImage] = useState(editedPlant ? editedPlant.image : '');
   const [notes, setNotes] = useState(editedPlant ? editedPlant.notes : '');
@@ -45,7 +48,7 @@ const EditPlantScreen = props => {
   };
 
   const dispatch = useDispatch();
-  console.log(name);
+
   const submitHandler = useCallback(async () => {
     
     if (editedPlant) {

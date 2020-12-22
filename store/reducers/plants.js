@@ -9,7 +9,7 @@ const initialState = {
   favoritePlants: []
 };
 
-export default (state = initialState, action) => {
+const plantsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_PLANTS:
       return {
@@ -27,12 +27,11 @@ export default (state = initialState, action) => {
         action.plantData.waterDate,
         action.plantData.notes
       );
-      
       return {
         ...state,
         plants: state.plants.concat(newPlant),
         favoritePlants: state.favoritePlants
-      };
+      }, console.log(newPlant);
     
     case UPDATE_PLANT:
       const plantIndex = state.plants.findIndex(
@@ -78,3 +77,5 @@ export default (state = initialState, action) => {
         return state;
   }
 }
+
+export default plantsReducer;

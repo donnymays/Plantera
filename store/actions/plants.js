@@ -68,7 +68,7 @@ export const addPlant = (name, type, image, dateReceived, waterDate, notes) => {
     );
 
     const resData = await response.json();
-
+console.log(resData);
     dispatch({
       type: ADD_PLANT,
       plantData: {
