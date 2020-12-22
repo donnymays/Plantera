@@ -27,6 +27,7 @@ export default (state = initialState, action) => {
         action.plantData.waterDate,
         action.plantData.notes
       );
+      
       return {
         ...state,
         plants: state.plants.concat(newPlant),

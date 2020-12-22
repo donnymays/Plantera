@@ -5,8 +5,11 @@ import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import AppNavigator from './navigation/AppNavigator';
 import ReduxThunk from 'redux-thunk';
-
 import plantsReducer from './store/reducers/plants';
+import { LogBox } from 'react-native';
+
+
+LogBox.ignoreLogs(['Deprecation']);
 
 const rootReducer = combineReducers({
   plants: plantsReducer

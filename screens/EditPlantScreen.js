@@ -14,7 +14,7 @@ const EditPlantScreen = props => {
   const editedPlant = useSelector(
     state => state.plants.plants.find(plant => plant.id === plantId)
   );
-
+ 
   const [name, setName] = useState(editedPlant ? editedPlant.name : '');
   const [type, setType] = useState(editedPlant ? editedPlant.type : '');
   const [image, setImage] = useState(editedPlant ? editedPlant.image : '');
@@ -45,9 +45,9 @@ const EditPlantScreen = props => {
   };
 
   const dispatch = useDispatch();
-
+  console.log(name);
   const submitHandler = useCallback(async () => {
-    console.log('submitted');
+    
     if (editedPlant) {
       await dispatch(plantsActions.updatePlant(
         plantId,
@@ -68,6 +68,7 @@ const EditPlantScreen = props => {
         notes
       ))
     }
+    props.navigation.goBack();
   }, [dispatch, plantId]);
 
   useEffect(() => {
