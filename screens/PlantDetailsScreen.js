@@ -11,16 +11,24 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const PlantDetailsScreen = props => {
   const plantId = props.navigation.getParam('plantId');
+  const plantName = props.navigation.getParam('plantName');
+  const plantType = props.navigation.getParam('plantType');
+  const plantImage = props.navigation.getParam('plantImage');
+  const plantDateReceived = props.navigation.getParam('plantDateReceived');
+  const plantNotes = props.navigation.getParam('plantNotes');
+  
+  
   const plants = useSelector(state => state.plants.plants);
   const selectedPlant = plants.find(plant => plant.id === plantId);
   const currentPlantIsFavorite = useSelector(state => 
     state.plants.favoritePlants.some(plant => plant.id === plantId)
   );
+  
   const dispatch = useDispatch();
 
   const waterPlantHandler = useCallback(() => {
-    dispatch(waterPlant(plantId));
-  }, [dispatch, plantId]);
+    dispatch(waterPlant(plantId, plantName, plantType, plantImage, plantDateReceived, plantNotes));
+  }, [dispatch, plantId, plantName, plantType, plantImage, plantDateReceived, plantNotes]);
 
   const toggleFavoriteHandler = useCallback(() => {
     dispatch(toggleFavorite(plantId));
@@ -75,7 +83,6 @@ const PlantDetailsScreen = props => {
 }
 
 PlantDetailsScreen.navigationOptions = navigationData => {
-  const plantId = navigationData.navigation.getParam('plantId');
   const plantName = navigationData.navigation.getParam('plantName');
   const toggleFavorite = navigationData.navigation.getParam('toggleFav');
   const isFavorite = navigationData.navigation.getParam('isFav');

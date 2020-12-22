@@ -63,12 +63,12 @@ const plantsReducer = (state = initialState, action) => {
       );
       const wateredPlant = new Plant(
         action.pid,
-        state.plants.name,
-        state.plants.type,
-        state.plants.image,
-        state.plants.dateReceived,
+        state.plants[wateredPlantIndex].name,
+        state.plants[wateredPlantIndex].type,
+        state.plants[wateredPlantIndex].image,
+        state.plants[wateredPlantIndex].dateReceived,
         action.plantData.waterDate,
-        action.plantData.notes
+        state.plants[wateredPlantIndex].notes
       );
       const updatedWateredPlants = [...state.plants];
       updatedWateredPlants[wateredPlantIndex] = wateredPlant;

@@ -99,12 +99,12 @@ export const waterPlant = (id, name, type, image, dateReceived, notes) => {
     type: WATER_PLANT,
     pid: id,
     plantData: {
-      name: name,
-      type: type,
-      image: image,
-      dateReceived: dateReceived,
+      name,
+      type,
+      image,
+      dateReceived,
       waterDate: updatedWaterDate,
-      notes: notes
+      notes
     }
   }
 }

@@ -26,6 +26,10 @@ const PlantList = props => {
             params: {
               plantId: itemData.item.id,
               plantName: itemData.item.name,
+              plantType: itemData.item.type,
+              plantImage: itemData.item.image,
+              plantDateReceived: itemData.item.dateReceived,
+              notes: itemData.item.dateReceived,
               isFav: isFavorite
             }
           });

@@ -11,8 +11,6 @@ import * as plantsActions from '../store/actions/plants';
 
 const EditPlantScreen = props => {
 
-
-  
   const plantId = props.navigation.getParam('plantId');
   const editedPlant = useSelector(
     state => state.plants.plants.find(plant => plant.id === plantId)
