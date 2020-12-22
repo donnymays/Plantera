@@ -28,7 +28,7 @@ const PlantDetailsScreen = props => {
 
   const editPlantHandler = id => {
     props.navigation.navigate({
-      routeName: 'Form', 
+      routeName: 'EditPlant', 
       params: { 
         plantId: id 
       }

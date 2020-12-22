@@ -77,9 +77,10 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     marginVertical: 4,
+    paddingBottom: 30
   },
   waterDate: {
-    fontSize: 14,
+    fontSize: 18,
     color: "#888",
   },
   actions: {

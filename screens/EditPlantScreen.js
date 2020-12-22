@@ -69,7 +69,8 @@ const EditPlantScreen = props => {
         format(waterDate, 'MM/dd/yyyy'), 
         notes
       ))
-    }
+    };
+    props.navigation.navigate('PlantsList')
   }, [dispatch, plantId]);
 
   useEffect(() => {
@@ -134,6 +135,17 @@ EditPlantScreen.navigationOptions = navData => {
             Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'
           }
           onPress={submitFn}
+        />
+      </HeaderButtons>
+    ),
+    headerLeft: (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="Menu"
+          iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
+          onPress={() => {
+            navData.navigation.toggleDrawer();
+          }}
         />
       </HeaderButtons>
     )
