@@ -21,6 +21,7 @@ export const fetchPlants = () => {
       }
       
       const resData = await response.json();
+      
       const loadedPlants = [];
   
       for (const key in resData) {
@@ -63,7 +64,7 @@ export const addPlant = (name, type, image, dateReceived, waterDate, notes) => {
     });
   
     const resData = await response.json();
-    
+   
     dispatch({ 
       type: ADD_PLANT, 
       plantData: { 

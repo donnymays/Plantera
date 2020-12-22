@@ -47,9 +47,7 @@ const EditPlantScreen = props => {
   const dispatch = useDispatch();
 
   const submitHandler = useCallback(async () => {
-    if (typeof editedPlant != 'undefined') {
-      console.log('somethings amiss')
-    }
+    console.log('submitted');
     if (editedPlant) {
       await dispatch(plantsActions.updatePlant(
         plantId,
@@ -69,8 +67,7 @@ const EditPlantScreen = props => {
         format(waterDate, 'MM/dd/yyyy'), 
         notes
       ))
-    };
-    props.navigation.navigate('PlantsList')
+    }
   }, [dispatch, plantId]);
 
   useEffect(() => {
@@ -135,17 +132,6 @@ EditPlantScreen.navigationOptions = navData => {
             Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'
           }
           onPress={submitFn}
-        />
-      </HeaderButtons>
-    ),
-    headerLeft: (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          title="Menu"
-          iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
-          onPress={() => {
-            navData.navigation.toggleDrawer();
-          }}
         />
       </HeaderButtons>
     )

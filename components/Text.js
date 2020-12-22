@@ -3,7 +3,7 @@ import { StyleSheet, Text } from 'react-native'
 
 const DefaultText = props => {
   return (
-      <Text style={{...styles1.text, ...props.style}}>{props.children}</Text>
+      <Text style={styles1.text}>{props.children}</Text>
   );
 };
 
@@ -18,7 +18,7 @@ const styles1 = StyleSheet.create({
 
 const BoldText = props => {
   return (
-      <Text style={{...styles2.text, ...props.style}}>{props.children}</Text>
+      <Text style={styles2.text}>{props.children}</Text>
   );
 };
 
@@ -32,7 +32,7 @@ const styles2 = StyleSheet.create({
 
 const ItalicText = props => {
   return (
-      <Text style={{...styles3.text, ...props.style}}>{props.children}</Text>
+      <Text style={styles3.text}>{props.children}</Text>
   );
 };
 

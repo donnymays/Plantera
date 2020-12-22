@@ -9,13 +9,13 @@ const initialState = {
   favoritePlants: []
 };
 
-const plantsReducer = (state = initialState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case SET_PLANTS:
       return {
         plants: action.plants,
         favoritePlants: state.favoritePlants
-      }
+      };
 
     case ADD_PLANT:
       const newPlant = new Plant(
@@ -77,5 +77,3 @@ const plantsReducer = (state = initialState, action) => {
         return state;
   }
 }
-
-export default plantsReducer;

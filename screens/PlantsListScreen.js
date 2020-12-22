@@ -78,7 +78,7 @@ PlantsListScreen.navigationOptions = navData => {
           title="Menu"
           iconName={Platform.OS === 'android' ? 'md-create' : 'ios-create'}
           onPress={() => {
-            navData.navigation.navigate('Form');
+            navData.navigation.navigate('EditPlant');
           }}
         />
       </HeaderButtons>
