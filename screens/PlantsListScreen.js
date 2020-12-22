@@ -14,35 +14,38 @@ const PlantsListScreen = props => {
   const [error, setError] = useState();
   const plants = useSelector(state => state.plants.plants);
   const dispatch = useDispatch();
-
-
-  const loadPlants = useCallback(async () => {
-    setError(null);
-    setIsRefreshing(true);
-    try {
-      await dispatch(plantsActions.fetchPlants());
-    } catch (err) {
-      setError(err.message);
-    }
-    setIsRefreshing(false);
-  }, [dispatch, setIsLoading, setError]);
-
+  
   useEffect(() => {
-    const willFocusSub = props.navigation.addListener(
-      'willFocus',
-      loadPlants
-    );
-    return () => {
-      willFocusSub.remove();
-    };
-  }, [loadPlants]);
+    dispatch(plantsActions.fetchPlants());
+  }, [dispatch]);
 
-  useEffect(() => {
-    setIsLoading(true);
-    loadPlants().then(() => {
-      setIsLoading(false);
-    });
-  }, [dispatch, loadPlants]);
+  // const loadPlants = useCallback(async () => {
+  //   setError(null);
+  //   setIsRefreshing(true);
+  //   try {
+  //     await dispatch(plantsActions.fetchPlants());
+  //   } catch (err) {
+  //     setError(err.message);
+  //   }
+  //   setIsRefreshing(false);
+  // }, [dispatch, setIsLoading, setError]);
+
+  // useEffect(() => {
+  //   const willFocusSub = props.navigation.addListener(
+  //     'willFocus',
+  //     loadPlants
+  //   );
+  //   return () => {
+  //     willFocusSub.remove();
+  //   };
+  // }, [loadPlants]);
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   loadPlants().then(() => {
+  //     setIsLoading(false);
+  //   });
+  // }, [dispatch, loadPlants]);
   
   
   if (isLoading) {

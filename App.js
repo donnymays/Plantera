@@ -14,9 +14,9 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
-store.subscribe(() =>
-  console.log(store.getState())
-);
+// store.subscribe(() =>
+//   console.log(store.getState())
+// );
 
 const fetchFonts = () => {
   return Font.loadAsync({

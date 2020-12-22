@@ -47,14 +47,15 @@ const EditPlantScreen = props => {
   const dispatch = useDispatch();
 
   const submitHandler = useCallback(async () => {
+    console.log('submitted');
     if (editedPlant) {
       await dispatch(plantsActions.updatePlant(
         plantId,
         name,
         type,
         image,
-        format(dateReceivedValue, 'MM/dd/yyyy'),
-        format(waterDateValue, 'MM/dd/yyyy'), 
+        format(dateReceived, 'MM/dd/yyyy'),
+        format(waterDate, 'MM/dd/yyyy'), 
         notes
       ))
     } else {
@@ -62,8 +63,8 @@ const EditPlantScreen = props => {
         name,
         type,
         image,
-        format(dateReceivedValue, 'MM/dd/yyyy'),
-        format(waterDateValue, 'MM/dd/yyyy'), 
+        format(dateReceived, 'MM/dd/yyyy'),
+        format(waterDate, 'MM/dd/yyyy'), 
         notes
       ))
     }
