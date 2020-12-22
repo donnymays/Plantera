@@ -28,9 +28,10 @@ const plantsReducer = (state = initialState, action) => {
         action.plantData.notes
       );
       return {
+        ...state,
         plants: state.plants.concat(newPlant),
         favoritePlants: state.favoritePlants
-      };
+      }, console.log(newPlant);;
     
     case UPDATE_PLANT:
       const plantIndex = state.plants.findIndex(
