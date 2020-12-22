@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react'
 import { StyleSheet, Text, View, ScrollView, Image, Button } from 'react-native'
 import Colors  from '../constants/Colors'
-import { BoldText } from '../components/Text'
+import { BoldText, DefaultText } from '../components/Text'
 import PLANTS from '../data/seed-data';
 import { Ionicons } from '@expo/vector-icons'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
@@ -48,10 +48,13 @@ const PlantDetailsScreen = props => {
       <View style={styles.imageContainer} >
         <Image style={styles.image} source={{ uri: selectedPlant.image }} />
       </View>
+      
       <View style={styles.dataContainer}>
-        <BoldText>{selectedPlant.type}</BoldText>
-        <Text>Growing Together Since: {selectedPlant.dateReceived}</Text>
-        <Text>Last Watered on: {selectedPlant.waterDate}</Text>
+      <BoldText style={styles.typeText}>{selectedPlant.type}</BoldText>
+        <View style={styles.datesContainer}>
+          <DefaultText>Growing Together Since: {selectedPlant.dateReceived}</DefaultText>
+          <DefaultText>Last Watered on: {selectedPlant.waterDate}</DefaultText>
+        </View>
       </View>
       <View style={styles.buttonContainer}>
         <Button 
@@ -116,5 +119,8 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around'
+  },
+  typeText: {
+    fontSize: 100
   }
 })

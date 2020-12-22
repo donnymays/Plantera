@@ -19,7 +19,7 @@ const plantsReducer = (state = initialState, action) => {
 
     case ADD_PLANT:
       const newPlant = new Plant(
-        action.plantData.id,
+        new Date().toString(),
         action.plantData.name,
         action.plantData.type,
         action.plantData.image,

@@ -46,43 +46,89 @@ export const fetchPlants = () => {
   };
 };
 
-export const addPlant = (name, type, image, dateReceived, waterDate, notes) => {
-    return async (dispatch) => {
-    const response = await fetch(
-      "https://plantera-46325-default-rtdb.firebaseio.com/plants.json",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          type,
-          image,
-          dateReceived,
-          waterDate,
-          notes
-        }),
-      }
-    );
+export const addPlant = (
+  name, 
+  type, 
+  image, 
+  dateReceived, 
+  waterDate, 
+  notes
+) => {
+  dispatch({
+    type: ADD_PLANT,
+    plantData: {
+      id: resData.name,
+      name,
+      type,
+      image,
+      dateReceived,
+      waterDate,
+      notes
+    },
+  });
+}
 
-    const resData = await response.json();
+export const updatePlant = (
+  id,
+  name,
+  type,
+  image,
+  dateReceived,
+  waterDate,
+  notes
+) => {
+  dispatch({
+    type: UPDATE_PLANT,
+    pid: id,
+    plantData: {
+      name,
+      type,
+      image,
+      dateReceived,
+      waterDate,
+      notes,
+    },
+  });
+}
 
-    dispatch({
-      type: ADD_PLANT,
-      plantData: {
-        id: resData.name,
-        // id,
-        name,
-        type,
-        image,
-        dateReceived,
-        waterDate,
-        notes
-      },
-    });
-  };
-};
+
+// export const addPlant = (name, type, image, dateReceived, waterDate, notes) => {
+//     return async (dispatch) => {
+//     const response = await fetch(
+//       "https://plantera-46325-default-rtdb.firebaseio.com/plants.json",
+//       {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({
+//           name,
+//           type,
+//           image,
+//           dateReceived,
+//           waterDate,
+//           notes
+//         }),
+//       }
+//     );
+
+//     const resData = await response.json();
+
+//     dispatch({
+//       type: ADD_PLANT,
+//       plantData: {
+//         id: resData.name,
+//         // id,
+//         name,
+//         type,
+//         image,
+//         dateReceived,
+//         waterDate,
+//         notes
+//       },
+//     });
+//   };
+// };
 
 export const updatePlant = (
   id,
