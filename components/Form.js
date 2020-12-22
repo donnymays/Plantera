@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
-import { SafeAreaView, Button, View, Text, TextInput, StyleSheet } from "react-native"
+import { SafeAreaView, Button, View, Text, TextInput, StyleSheet, Platform } from "react-native"
 import { useSelector, useDispatch } from 'react-redux';
 import Wizard from "react-native-wizard"
 import  Colors  from "../constants/Colors";
@@ -8,6 +8,7 @@ import * as plantsActions from '../store/actions/plants';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
+import { DefaultText, ItalicText, BoldText } from '../components/Text';
 
 const Form = props => {
   const wizard = useRef()
@@ -84,7 +85,7 @@ const Form = props => {
     {
       content: (
         <View>
-          <Text style={styles.label}>This is where you can add a new plant!</Text>
+          <DefaultText style={styles.label}>This is where you can add a new plant!</DefaultText>
           <TextInput 
             style={styles.textInput} 
             onChangeText={nameChangeHandler}
@@ -122,7 +123,7 @@ const Form = props => {
         <View>
         <Text style={styles.label}>When did you bring home your plant?</Text>
         <DateTimePicker
-            display={'spinner'}
+            display={Platform.OS === 'android' ? 'default' : 'spinner'}
             onChange={onDateReceivedChangeHandler}
             value={dateReceived}
         />
@@ -134,7 +135,7 @@ const Form = props => {
         <View>
         <Text style={styles.label}>When did you last water your plant?</Text>
           <DateTimePicker
-            display={'spinner'}
+            display={Platform.OS === 'android' ? 'default' : 'spinner'}
             onChange={onWaterDateChangeHandler}
             value={waterDate}
           />
@@ -171,7 +172,7 @@ const Form = props => {
           <Button disabled={isLastStep} title="Next" onPress={() => wizard.current.next()} />
         </View>
       </SafeAreaView>
-      <View style={{ flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+      <View style={styles.inputContainer}>
         <Wizard
           nextStepAnimation="slideRight"
           ref={wizard}
@@ -190,23 +191,24 @@ const Form = props => {
         />
         {isLastStep && (
           <View>
-             <Button
+            <Button
                 color={Colors.green}
                 title="Save"
                 onPress={submitHandler}
               />
           </View>
         )}
-        <View style={{ flexDirection: "row", margin: 18 }}>
+        <View style={styles.dotsContainer}>
           {stepList.map((val, index) => (
             <View
               key={"step-indicator-" + index}
               style={{
                 width: 10,
                 marginHorizontal: 6,
+                
                 height: 10,
-                borderRadius: 5,
-                backgroundColor: index === currentStep ? "#fc0" : "#000",
+                borderRadius: 5, 
+                backgroundColor: index === currentStep ? Colors.green : Colors.gold
               }}
             />
           ))}
@@ -217,12 +219,13 @@ const Form = props => {
 }
 
 Form.navigationOptions = navData => {
-  
-    headerTitle: {
+  return {
+    headerTitle: 
       navData.navigation.getParam('plantId')
       ? 'Edit Plant'
       : 'Add Plant'
-  };
+    
+  }
 };
 
 
@@ -232,14 +235,27 @@ const styles = StyleSheet.create({
   form: {
     margin: 30
   },
+  inputContainer: {
+    marginTop: 48,
+    alignItems: "center", 
+    justifyContent: "center" 
+  },
   label: {
-    fontSize: 18,
-    marginBottom: 15
+    fontSize: 56,
+    marginBottom: 15,
+    color: Colors.green
   },
   textInput: {
     borderBottomColor: Colors.green,
     borderBottomWidth: 1,
     marginBottom: 15,
     paddingVertical: 10
+  },
+  dotsContainer: {
+    flexDirection: "row", 
+    margin: 18,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    marginTop: 560
   }
 });
