@@ -58,7 +58,7 @@ const plantsReducer = (state = initialState, action) => {
       };
 
     case WATER_PLANT:
-      const plantIndex = state.plants.findIndex(
+      const wateredPlantIndex = state.plants.findIndex(
         plant => plant.id === action.pid
       );
       const wateredPlant = new Plant(
@@ -69,7 +69,14 @@ const plantsReducer = (state = initialState, action) => {
         state.plants.dateReceived,
         action.plantData.waterDate,
         action.plantData.notes
-      )
+      );
+      const updatedWateredPlants = [...state.plants];
+      updatedWateredPlants[wateredPlantIndex] = wateredPlant;
+      return {
+        ...state,
+        plants: updatedPlants,
+        favoritePlants: state.favoritePlants
+      }
 
     case TOGGLE_FAVORITE:
       const existingIndex = state.favoritePlants.findIndex(
