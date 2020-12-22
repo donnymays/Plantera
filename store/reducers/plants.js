@@ -74,7 +74,7 @@ const plantsReducer = (state = initialState, action) => {
       updatedWateredPlants[wateredPlantIndex] = wateredPlant;
       return {
         ...state,
-        plants: updatedPlants,
+        plants: updatedWateredPlants,
         favoritePlants: state.favoritePlants
       }
 

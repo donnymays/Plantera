@@ -6,6 +6,7 @@ export const TOGGLE_FAVORITE = "TOGGLE_FAVORITE";
 export const ADD_PLANT = "ADD_PLANT";
 export const SET_PLANTS = "SET_PLANTS";
 export const UPDATE_PLANT = 'UPDATE_PLANT'
+export const WATER_PLANT = 'WATER_PLANT'
 
 
 export const toggleFavorite = (id) => {
@@ -92,13 +93,18 @@ export const updatePlant = (
   };
 };
 
-export const waterPlant = id => {
+export const waterPlant = (id, name, type, image, dateReceived, notes) => {
   const updatedWaterDate = format(new Date(), "MM/dd/yyyy");
   return {
-    type: UPDATE_PLANT,
+    type: WATER_PLANT,
     pid: id,
     plantData: {
-      waterDate: updatedWaterDate
+      name: name,
+      type: type,
+      image: image,
+      dateReceived: dateReceived,
+      waterDate: updatedWaterDate,
+      notes: notes
     }
   }
 }
