@@ -6,6 +6,8 @@ import  Colors  from "../constants/Colors";
 import { format } from 'date-fns';
 import * as plantsActions from '../store/actions/plants';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton';
 
 const Form = props => {
   const wizard = useRef()
@@ -186,6 +188,15 @@ const Form = props => {
             setCurrentStep(currentStep)
           }}
         />
+        {isLastStep && (
+          <View>
+             <Button
+                color={Colors.green}
+                title="Save"
+                onPress={submitHandler}
+              />
+          </View>
+        )}
         <View style={{ flexDirection: "row", margin: 18 }}>
           {stepList.map((val, index) => (
             <View
@@ -204,6 +215,16 @@ const Form = props => {
     </View>
   )
 }
+
+Form.navigationOptions = navData => {
+  
+    headerTitle: {
+      navData.navigation.getParam('plantId')
+      ? 'Edit Plant'
+      : 'Add Plant'
+  };
+};
+
 
 export default Form;
 

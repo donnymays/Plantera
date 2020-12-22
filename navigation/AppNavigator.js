@@ -31,7 +31,7 @@ const defaultStackNavOptions = {
 const PlantsNavigator = createStackNavigator({
   PlantsList: PlantsListScreen,
   PlantDetails: PlantDetailsScreen,
-  EditPlant: EditPlantScreen
+  EditPlant: Form
 }, {
   defaultNavigationOptions: defaultStackNavOptions
 });
