@@ -13,85 +13,85 @@ export const toggleFavorite = (id) => {
   return { type: TOGGLE_FAVORITE, plantId: id };
 };
 
-// export const fetchPlants = () => {
-//   return async (dispatch) => {
-//     try {
-//       const response = await fetch(
-//         "https://plantera-46325-default-rtdb.firebaseio.com/plants.json"
-//       );
+export const fetchPlants = () => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        "https://plantera-46325-default-rtdb.firebaseio.com/plants.json"
+      );
 
-//       if (!response.ok) {
-//         throw new Error("Something went wrong!");
-//       }
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
 
-//       const resData = await response.json();
+      const resData = await response.json();
 
-//       const loadedPlants = [];
+      const loadedPlants = [];
 
-//       for (const key in resData) {
-//         loadedPlants.push(
-//           new Plant(
-//             key,
-//             resData[key].name,
-//             resData[key].type,
-//             resData[key].image,
-//             resData[key].dateReceived,
-//             resData[key].waterDate,
-//             resData[key].notes
-//           )
-//         );
-//       }
-//       dispatch({ type: SET_PLANTS, plants: loadedPlants });
-//     } catch (err) {
-//       throw err;
+      for (const key in resData) {
+        loadedPlants.push(
+          new Plant(
+            key,
+            resData[key].name,
+            resData[key].type,
+            resData[key].image,
+            resData[key].dateReceived,
+            resData[key].waterDate,
+            resData[key].notes
+          )
+        );
+      }
+      dispatch({ type: SET_PLANTS, plants: loadedPlants });
+    } catch (err) {
+      throw err;
+    }
+  };
+};
+
+// export const addPlant = (
+//   name, 
+//   type, 
+//   image, 
+//   dateReceived, 
+//   waterDate, 
+//   notes
+// ) => {
+//   return {
+//     type: ADD_PLANT,
+//     plantData: {
+//       id,
+//       name,
+//       type,
+//       image,
+//       dateReceived,
+//       waterDate,
+//       notes
 //     }
 //   };
 // };
 
-export const addPlant = (
-  name, 
-  type, 
-  image, 
-  dateReceived, 
-  waterDate, 
-  notes
-) => {
-  return {
-    type: ADD_PLANT,
-    plantData: {
-      id,
-      name,
-      type,
-      image,
-      dateReceived,
-      waterDate,
-      notes
-    }
-  };
-};
-
-export const updatePlant = (
-  id,
-  name,
-  type,
-  image,
-  dateReceived,
-  waterDate,
-  notes
-) => {
- return {
-    type: UPDATE_PLANT,
-    pid: id,
-    plantData: {
-      name,
-      type,
-      image,
-      dateReceived,
-      waterDate,
-      notes,
-    }
-  };
-};
+// export const updatePlant = (
+//   id,
+//   name,
+//   type,
+//   image,
+//   dateReceived,
+//   waterDate,
+//   notes
+// ) => {
+//  return {
+//     type: UPDATE_PLANT,
+//     pid: id,
+//     plantData: {
+//       name,
+//       type,
+//       image,
+//       dateReceived,
+//       waterDate,
+//       notes,
+//     }
+//   };
+// };
 
 export const waterPlant = (id, name, type, image, dateReceived, notes) => {
   const updatedWaterDate = format(new Date(), "MM/dd/yyyy");
@@ -139,89 +139,89 @@ export const waterPlant = (id, name, type, image, dateReceived, notes) => {
 //   };
 // };
 
-// export const addPlant = (name, type, image, dateReceived, waterDate, notes) => {
-//     return async (dispatch) => {
-//     const response = await fetch(
-//       "https://plantera-46325-default-rtdb.firebaseio.com/plants.json",
-//       {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           name,
-//           type,
-//           image,
-//           dateReceived,
-//           waterDate,
-//           notes
-//         }),
-//       }
-//     );
+export const addPlant = (name, type, image, dateReceived, waterDate, notes) => {
+    return async (dispatch) => {
+    const response = await fetch(
+      "https://plantera-46325-default-rtdb.firebaseio.com/plants.json",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          type,
+          image,
+          dateReceived,
+          waterDate,
+          notes
+        }),
+      }
+    );
 
-//     const resData = await response.json();
+    const resData = await response.json();
 
-//     dispatch({
-//       type: ADD_PLANT,
-//       plantData: {
-//         id: resData.name,
-//         // id,
-//         name,
-//         type,
-//         image,
-//         dateReceived,
-//         waterDate,
-//         notes
-//       },
-//     });
-//   };
-// };
+    dispatch({
+      type: ADD_PLANT,
+      plantData: {
+        id: resData.name,
+        // id,
+        name,
+        type,
+        image,
+        dateReceived,
+        waterDate,
+        notes
+      },
+    });
+  };
+};
 
-// export const updatePlant = (
-//   id,
-//   name,
-//   type,
-//   image,
-//   dateReceived,
-//   waterDate,
-//   notes
-// ) => {
-//   return async (dispatch) => {
-//     const response = await fetch(
-//       `https://plantera-46325-default-rtdb.firebaseio.com/plants/${id}.json`,
-//       {
-//         method: "PATCH",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           name,
-//           type,
-//           image,
-//           dateReceived,
-//           waterDate,
-//           notes,
-//         }),
-//       }
-//     );
+export const updatePlant = (
+  id,
+  name,
+  type,
+  image,
+  dateReceived,
+  waterDate,
+  notes
+) => {
+  return async (dispatch) => {
+    const response = await fetch(
+      `https://plantera-46325-default-rtdb.firebaseio.com/plants/${id}.json`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          type,
+          image,
+          dateReceived,
+          waterDate,
+          notes,
+        }),
+      }
+    );
 
-//     if (!response.ok) {
-//       throw new Error("Something went wrong!");
-//     }
+    if (!response.ok) {
+      throw new Error("Something went wrong!");
+    }
 
-//     dispatch({
-//       type: UPDATE_PLANT,
-//       pid: id,
-//       plantData: {
-//         name,
-//         type,
-//         image,
-//         dateReceived,
-//         waterDate,
-//         notes,
-//       },
-//     });
-//   };
-// };
+    dispatch({
+      type: UPDATE_PLANT,
+      pid: id,
+      plantData: {
+        name,
+        type,
+        image,
+        dateReceived,
+        waterDate,
+        notes,
+      },
+    });
+  };
+};
 
 

@@ -10,58 +10,60 @@ import { DefaultText } from '../components/Text';
 import PLANTS from '../data/seed-data';
 
 const PlantsListScreen = props => {  
-  
+  const [isLoading, setIsLoading] = useState(false)
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [error, setError] = useState();
   const plants = useSelector(state => state.plants.plants);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   
-  // useEffect(() => {
-  //   dispatch(plantsActions.fetchPlants());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(plantsActions.fetchPlants());
+  }, [dispatch]);
 
-  // const loadPlants = useCallback(async () => {
-  //   setError(null);
-  //   setIsRefreshing(true);
-  //   try {
-  //     await dispatch(plantsActions.fetchPlants());
-  //   } catch (err) {
-  //     setError(err.message);
-  //   }
-  //   setIsRefreshing(false);
-  // }, [dispatch, setIsLoading, setError]);
+  const loadPlants = useCallback(async () => {
+    setError(null);
+    setIsRefreshing(true);
+    try {
+      await dispatch(plantsActions.fetchPlants());
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsRefreshing(false);
+  }, [dispatch, setIsLoading, setError]);
 
-  // useEffect(() => {
-  //   const willFocusSub = props.navigation.addListener(
-  //     'willFocus',
-  //     loadPlants
-  //   );
-  //   return () => {
-  //     willFocusSub.remove();
-  //   };
-  // }, [loadPlants]);
+  useEffect(() => {
+    const willFocusSub = props.navigation.addListener(
+      'willFocus',
+      loadPlants
+    );
+    return () => {
+      willFocusSub.remove();
+    };
+  }, [loadPlants]);
 
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   loadPlants().then(() => {
-  //     setIsLoading(false);
-  //   });
-  // }, [dispatch, loadPlants]);
+  useEffect(() => {
+    setIsLoading(true);
+    loadPlants().then(() => {
+      setIsLoading(false);
+    });
+  }, [dispatch, loadPlants]);
   
   
-  // if (isLoading) {
-  //   return(
-  //     <View style={styles.centered}>
-  //       <ActivityIndicator size='large' color={Colors.green} />
-  //     </View>
-  //   )
-  // }
+  if (isLoading) {
+    return(
+      <View style={styles.centered}>
+        <ActivityIndicator size='large' color={Colors.green} />
+      </View>
+    )
+  }
 
-  // if (!isLoading && plants.length === 0) {
-  //   return (
-  //     <View style={styles.centered}>
-  //     <DefaultText>No Plants found.  Try adding some.</DefaultText>
-  //   </View>
-  //   )
-  // }
+  if (!isLoading && plants.length === 0) {
+    return (
+      <View style={styles.centered}>
+      <DefaultText>No Plants found.  Try adding some.</DefaultText>
+    </View>
+    )
+  }
 
   return (
       <PlantList navigation={props.navigation} listData={plants}/> 
