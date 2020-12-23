@@ -14,6 +14,7 @@ import EditPlantScreen from '../screens/EditPlantScreen';
 import CalendarScreen from '../screens/CalendarScreen';
 import { BoldText } from '../components/Text';
 import Colors from '../constants/Colors';
+import Form from '../components/Form';
 
 const defaultStackNavOptions = {
   headerStyle: {
@@ -27,9 +28,8 @@ const defaultStackNavOptions = {
   }
 }
 
-const PlantsNavigator = createStackNavigator({
-  Calendar: CalendarScreen,
-  // PlantsList: PlantsListScreen,
+const PlantsNavigator = createStackNavigator({ 
+  PlantsList: Form,
   PlantDetails: PlantDetailsScreen,
   EditPlant: EditPlantScreen
 }, {
@@ -61,6 +61,19 @@ const FavNavigator = createStackNavigator({
         tabBarLabel: Platform.OS === 'android' ? <BoldText>Plants</BoldText> : 'Plants'
       },
     },
+    Calendar: {
+      screen: CalendarScreen,
+      navigationOptions: {
+        tabBarLabel: 'Calendar',
+        tabBarIcon: (tabInfo) => {
+          return (
+            <Ionicons name='ios-calendar' size={25} color={tabInfo.tintColor} />
+          );
+        },
+        tabBarColor: Colors.green,
+        tabBarLabel: Platform.OS === 'android' ? <BoldText>Calendar</BoldText> : 'Calendar'
+      }
+    },
     Favorites: {
       screen: FavNavigator,
       navigationOptions: {
@@ -73,7 +86,7 @@ const FavNavigator = createStackNavigator({
         tabBarColor: Colors.green,
         tabBarLabel: Platform.OS === 'android' ? <BoldText>Favorites</BoldText> : 'Favorites'
       },
-    },
+    }
   }
 
   const PlantsFavTabNavigator = 

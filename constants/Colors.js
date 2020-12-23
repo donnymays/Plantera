@@ -5,5 +5,4 @@ export default {
   red: '#AD2E24',
   taupe: '#DCB5A8',
   whitish: '#F3F5F6'
-
 };

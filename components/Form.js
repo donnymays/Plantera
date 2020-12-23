@@ -1,26 +1,27 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
-import { SafeAreaView, Button, View, Text, TextInput, StyleSheet, Platform } from "react-native"
+import { StyleSheet, Text, View, TextInput, ScrollView, Button, Platform, SafeAreaView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import Wizard from "react-native-wizard"
-import  Colors  from "../constants/Colors";
-import { format } from 'date-fns';
-import * as plantsActions from '../store/actions/plants';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import Colors from '../constants/Colors'
+import { format } from 'date-fns';
+import parse from 'date-fns/parse'
+import * as plantsActions from '../store/actions/plants';
 import { DefaultText, ItalicText, BoldText } from '../components/Text';
+import Wizard from 'react-native-wizard';
+import { Picker } from '@react-native-picker/picker';
 
 const Form = props => {
-  const wizard = useRef()
-  const [isFirstStep, setIsFirstStep] = useState()
-  const [isLastStep, setIsLastStep] = useState()
-  const [currentStep, setCurrentStep] = useState(0)
 
   const plantId = props.navigation.getParam('plantId');
   const editedPlant = useSelector(
     state => state.plants.plants.find(plant => plant.id === plantId)
   );
-
+  const wizard = useRef()
+  const [isFirstStep, setIsFirstStep] = useState(true)
+  const [isLastStep, setIsLastStep] = useState(false)
+  const [currentStep, setCurrentStep] = useState(0)
   const [name, setName] = useState(editedPlant ? editedPlant.name : '');
   const [type, setType] = useState(editedPlant ? editedPlant.type : '');
   const [image, setImage] = useState(editedPlant ? editedPlant.image : '');
@@ -52,22 +53,20 @@ const Form = props => {
 
   const dispatch = useDispatch();
 
-  const submitHandler = useCallback(async () => {
-    if (typeof editedPlant != 'undefined') {
-      console.log('somethings amiss')
-    }
+  const submitHandler = useCallback( () => {
+    
     if (editedPlant) {
-      await dispatch(plantsActions.updatePlant(
+     dispatch(plantsActions.updatePlant(
         plantId,
         name,
         type,
         image,
         format(dateReceived, 'MM/dd/yyyy'),
-        format(waterDate, 'MM/dd/yyyy'), 
+        format(waterDate, 'MM/dd/yyyy'),
         notes
       ))
     } else {
-      await dispatch(plantsActions.addPlant(
+       dispatch(plantsActions.addPlant(
         name,
         type,
         image,
@@ -76,7 +75,8 @@ const Form = props => {
         notes
       ))
     }
-  }, [dispatch, plantId]);
+    props.navigation.goBack();
+  }, [dispatch, plantId, name, type, image, dateReceived, waterDate, notes]);
 
   useEffect(() => {
     props.navigation.setParams({ submit: submitHandler })
@@ -97,7 +97,7 @@ const Form = props => {
     {
       content: (
         <View>
-          <Text style={styles.label}>This is where you can choose your plant type</Text>
+          <DefaultText style={styles.label}>This is where you can choose your plant type</DefaultText>
           <TextInput 
           style={styles.textInput} 
           onChangeText={typeChangeHandler}
@@ -109,7 +109,7 @@ const Form = props => {
     {
       content: (
         <View>
-        <Text style={styles.label}>This is where you can enter your plant image plachodler</Text>
+        <DefaultText style={styles.label}>This is where you can enter your plant image plachodler</DefaultText>
           <TextInput 
           style={styles.textInput} 
           onChangeText={imageChangeHandler}
@@ -121,7 +121,7 @@ const Form = props => {
     {
       content: (
         <View>
-        <Text style={styles.label}>When did you bring home your plant?</Text>
+        <DefaultText style={styles.label}>When did you bring home your plant?</DefaultText>
         <DateTimePicker
             display={Platform.OS === 'android' ? 'default' : 'spinner'}
             onChange={onDateReceivedChangeHandler}
@@ -133,7 +133,7 @@ const Form = props => {
     {
       content: (
         <View>
-        <Text style={styles.label}>When did you last water your plant?</Text>
+        <DefaultText style={styles.label}>When did you last water your plant?</DefaultText>
           <DateTimePicker
             display={Platform.OS === 'android' ? 'default' : 'spinner'}
             onChange={onWaterDateChangeHandler}
@@ -145,7 +145,7 @@ const Form = props => {
     {
       content: (
         <View>
-          <Text style={styles.label}>Would you like to add any note to your plant?</Text>
+          <DefaultText style={styles.label}>Would you like to add any note to your plant?</DefaultText>
           <TextInput 
             style={styles.textInput}
             onChangeText={notesChangeHandler}
@@ -157,19 +157,17 @@ const Form = props => {
   ]
   return (
     <View>
-      <SafeAreaView style={{ backgroundColor: "#FFF" }}>
+      <SafeAreaView style={{ backgroundColor: Colors.gold }}>
         <View
           style={{
             justifyContent: "space-between",
             alignItems: "center",
             flexDirection: "row",
-            backgroundColor: "#FFF",
-            borderBottomColor: "#dedede",
-            borderBottomWidth: 1,
+            backgroundColor: Colors.whitish,
+          
           }}>
-          <Button disabled={isFirstStep} title="Prev" onPress={() => wizard.current.prev()} />
-          <Text style={{ textAlign: "center", fontWeight: "bold" }}>{currentStep + 1}. Step</Text>
-          <Button disabled={isLastStep} title="Next" onPress={() => wizard.current.next()} />
+          <Button color={Colors.gold} disabled={isFirstStep} title="Prev" onPress={() => wizard.current.prev()} />
+          <Button color={Colors.gold} disabled={isLastStep} title="Next" onPress={() => wizard.current.next()} />
         </View>
       </SafeAreaView>
       <View style={styles.inputContainer}>
@@ -180,10 +178,10 @@ const Form = props => {
           isFirstStep={val => setIsFirstStep(val)}
           isLastStep={val => setIsLastStep(val)}
           onNext={() => {
-            console.log("Next Step Called")
+            
           }}
           onPrev={() => {
-            console.log("Previous Step Called")
+            
           }}
           currentStep={({ currentStep, isLastStep, isFirstStep }) => {
             setCurrentStep(currentStep)
@@ -236,7 +234,7 @@ const styles = StyleSheet.create({
     margin: 30
   },
   inputContainer: {
-    marginTop: 48,
+    marginTop: 200,
     alignItems: "center", 
     justifyContent: "center" 
   },
@@ -256,6 +254,6 @@ const styles = StyleSheet.create({
     margin: 18,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    marginTop: 560
+    marginTop: 360
   }
 });
