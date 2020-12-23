@@ -1,5 +1,5 @@
-import React, { useReducer, useCallback } from 'react';
-import { StyleSheet, Text, View, TextInput, ScrollView, Button, KeyboardAvoidingView } from 'react-native';
+import React, { useReducer, useCallback, useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, ScrollView, Button, KeyboardAvoidingView, ActivityIndicator, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Input from '../components/Input';
 import Colors from '../constants/Colors';
@@ -30,7 +30,10 @@ const formReducer = (state, action) => {
   return state;
 };
 
-const LoginScreen = () => {
+const LoginScreen = props => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+  const [isSignup, setIsSignup] = useState(false);
   const dispatch = useDispatch();
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
@@ -45,13 +48,34 @@ const LoginScreen = () => {
     formIsValid: false
   });
 
-  const signupHandler = () => {
-    dispatch(
-      authActions.signup(
+  useEffect(() => {
+    if (error) {
+      Alert.alert('An Error Occurred!', error, [{ text: 'Okay' }]);
+    }
+  }, [error]);
+
+  const authHandler = async () => {
+    let action;
+    if (isSignup) {
+      action = authActions.signup(
         formState.inputValues.email,
         formState.inputValues.password
-      )
-    );
+      );
+    } else {
+      action = authActions.login(
+        formState.inputValues.email,
+        formState.inputValues.password
+      );
+    }
+    setError(null);
+    setIsLoading(true);
+    try {
+      await dispatch(action);
+      props.navigation.navigate('Plants');
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsLoading(false);
   };
 
   const inputChangeHandler = useCallback(
@@ -102,11 +126,22 @@ const LoginScreen = () => {
           initialValue=""
         />
         <View style={styles.buttonContainer}>
-          <Button title="Login" color={Colors.gold} onPress={() => {}} />
+        {isLoading ? (
+          <ActivityIndicator size="small" color={Colors.primary} />
+          ) : (
+            <Button
+              title={isSignup ? 'Sign Up' : 'Login'}
+              color={Colors.gold}
+              onPress={authHandler}
+            />
+          )}
           <Button
-            title="Sign Up"
+            title={`${isSignup ? 'Login' : 'Create Account'}`}
             color={Colors.red}
-            onPress={signupHandler}
+            
+            onPress={() => {
+              setIsSignup(prevState => !prevState);
+            }}
           />
         </View>
       </View>
@@ -150,7 +185,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   buttonContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center'
   }
