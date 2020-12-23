@@ -94,12 +94,13 @@ const styles = StyleSheet.create({
   },
   input: {
     paddingHorizontal: 2,
-    paddingVertical: 5,
-    borderBottomColor: Colors.whitish,
+    paddingVertical: 15,
+    borderBottomColor: Colors.green,
     borderBottomWidth: 1,
     color: Colors.grey,
     textAlign: 'center',
-    fontFamily: 'open-sans'
+    fontFamily: 'open-sans',
+    marginBottom: 10
   },
   errorContainer: {
     marginVertical: 5
