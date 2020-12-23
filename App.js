@@ -9,7 +9,7 @@ import plantsReducer from './store/reducers/plants';
 import { LogBox } from 'react-native';
 
 
-LogBox.ignoreLogs(['Deprecation']);
+LogBox.ignoreLogs(['Deprecation', 'Your project']);
 
 const rootReducer = combineReducers({
   plants: plantsReducer

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
-import { StyleSheet, Text, View, TextInput, ScrollView, Button, Platform, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView, Button, Platform, SafeAreaView, Image} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
@@ -11,11 +11,11 @@ import * as plantsActions from '../store/actions/plants';
 import { DefaultText, ItalicText, BoldText } from '../components/Text';
 import Wizard from 'react-native-wizard';
 import { Picker } from '@react-native-picker/picker';
-import ImageSelector from '../components/ImageSelector';
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
 
 
 const Form = props => {
-
   const plantId = props.navigation.getParam('plantId');
   const editedPlant = useSelector(
     state => state.plants.plants.find(plant => plant.id === plantId)
@@ -37,9 +37,11 @@ const Form = props => {
   const typeChangeHandler = (inputValue) => {
     setType(inputValue);
   };
-  const imageChangeHandler = (text) => {
-    setImage(text);
-  };
+  
+  // const imageChangeHandler = (text) => {
+  //   setImage(text);
+  // };
+  
   const notesChangeHandler = (text) => {
     setNotes(text);
   };
@@ -52,6 +54,34 @@ const Form = props => {
     const currentDate = selectedDate || waterDate;
     setWaterDate(currentDate);
   };
+
+  const imageChangeHandler = async () => {
+    const hasPermission = await verifyPermissions();
+    if (!hasPermission) {
+        return;
+    }
+   const imageTaken = await ImagePicker.launchCameraAsync({
+     allowsEditing: true,
+     aspect: [16, 9],
+     quality: 0.5
+   });
+   setImage(imageTaken.uri);
+   console.log(imageTaken.uri);
+  };
+
+  const verifyPermissions = async () => {
+    const result = await Permissions.askAsync(Permissions.CAMERA);
+    if (result.status !== 'granted') {
+      Alert.alert(
+        'Insufficient permissions!',
+        'You need to grant camera permissions to use this app.',
+        [{ text: 'Okay' }]
+      );
+      return false;
+    }
+    return true;
+  };
+
 
   const dispatch = useDispatch();
 
@@ -101,9 +131,8 @@ const Form = props => {
         <View>
           <Text style={styles.label}>This is where you can choose your plant type</Text>
           <Picker 
-        
-          onValueChange={typeChangeHandler}
-          selectedValue={type}
+            onValueChange={typeChangeHandler}
+            selectedValue={type}
           >
             <Picker.Item label="Alocasia" value="alocasia" />
             <Picker.Item label="Ficus" value="ficus" />
@@ -118,8 +147,19 @@ const Form = props => {
     {
       content: (
         <View>
-        <Text style={styles.label}>Take a Photo of Your Plant</Text>
-        <ImageSelector />
+          <Text style={styles.label}>Take a Photo of Your Plant</Text>
+          <View style={styles.imagePreview}>
+            {!image ? <Text>No Photo to Display</Text>
+            : <Image 
+              style={styles.image}
+              source={{uri: image}}
+            />}
+          </View>
+          <Button
+            title="Take Image"
+            color={Colors.green}
+            onPress={imageChangeHandler}
+          />
         </View>
       ),
     },
