@@ -74,8 +74,8 @@ const LoginScreen = props => {
       props.navigation.navigate('Plants');
     } catch (err) {
       setError(err.message);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const inputChangeHandler = useCallback(
@@ -131,21 +131,22 @@ const LoginScreen = props => {
           ) : (
             <Button
               title={isSignup ? 'Sign Up' : 'Login'}
-              color={Colors.gold}
+              color='#4E6A5D'
               onPress={authHandler}
             />
           )}
-          <Button
-            title={`${isSignup ? 'Login' : 'Create Account'}`}
-            color={Colors.red}
-            
-            onPress={() => {
-              setIsSignup(prevState => !prevState);
-            }}
-          />
+        </View>
+        <View style={styles.buttonContainer}></View>
+            <Button
+              title={`${isSignup ? 'Login' : 'Create Account'}`}
+              color={Colors.gold}
+              onPress={() => {
+                setIsSignup(prevState => !prevState);
+              }}
+            />
         </View>
       </View>
-    </View>
+    {/* </View> */}
   </KeyboardAvoidingView>
   )
 }
@@ -155,7 +156,7 @@ export default LoginScreen
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: Colors.green
+    backgroundColor: '#4E6A5D'
   },
   titleContainer: {
     marginVertical: 15
@@ -172,7 +173,7 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 5,
     borderRadius: 10,
-    backgroundColor: Colors.whitish,
+    backgroundColor: Colors.green,
     width: '80%',
     maxWidth: 400,
     maxHeight: 400,
@@ -187,6 +188,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'column',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    marginVertical: 10,
+    alignItems: 'center',
   }
 })

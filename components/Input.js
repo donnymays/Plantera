@@ -89,17 +89,17 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: 'open-sans-bold',
     marginVertical: 8,
-    color: Colors.gold,
+    color: Colors.taupe,
     textAlign: 'center'
   },
   input: {
     paddingHorizontal: 2,
     paddingVertical: 15,
-    borderBottomColor: Colors.green,
+    borderBottomColor: Colors.taupe,
     borderBottomWidth: 1,
-    color: Colors.grey,
+    color: Colors.taupe,
     textAlign: 'center',
-    fontFamily: 'open-sans',
+    fontFamily: 'open-sans-bold',
     marginBottom: 10
   },
   errorContainer: {

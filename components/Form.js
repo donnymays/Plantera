@@ -134,12 +134,12 @@ const Form = props => {
             onValueChange={typeChangeHandler}
             selectedValue={type}
           >
-            <Picker.Item label="Alocasia" value="alocasia" />
-            <Picker.Item label="Ficus" value="ficus" />
-            <Picker.Item label="Monstera" value="monstera" />
-            <Picker.Item label="Calathea" value="calathea" />
-            <Picker.Item label="Succulent" value="succulent" />
-            <Picker.Item label="Cactus" value="cactus" />
+            <Picker.Item label="Alocasia" value="Alocasia" />
+            <Picker.Item label="Ficus" value="Ficus" />
+            <Picker.Item label="Monstera" value="Monstera" />
+            <Picker.Item label="Calathea" value="Calathea" />
+            <Picker.Item label="Succulent" value="Succulent" />
+            <Picker.Item label="Cactus" value="Cactus" />
           </Picker>
         </View>
       ),

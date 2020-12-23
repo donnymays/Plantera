@@ -6,13 +6,15 @@ import AppLoading from 'expo-app-loading';
 import AppNavigator from './navigation/AppNavigator';
 import ReduxThunk from 'redux-thunk';
 import plantsReducer from './store/reducers/plants';
+import authReducer from './store/reducers/auth';
 import { LogBox } from 'react-native';
 
 
 LogBox.ignoreLogs(['Deprecation', 'Your project']);
 
 const rootReducer = combineReducers({
-  plants: plantsReducer
+  plants: plantsReducer,
+  auth: authReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
