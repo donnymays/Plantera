@@ -306,6 +306,6 @@ const styles = StyleSheet.create({
     margin: 18,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    marginTop: 160
+    marginTop: 120
   }
 });
