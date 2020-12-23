@@ -11,6 +11,8 @@ import * as plantsActions from '../store/actions/plants';
 import { DefaultText, ItalicText, BoldText } from '../components/Text';
 import Wizard from 'react-native-wizard';
 import { Picker } from '@react-native-picker/picker';
+import ImageSelector from '../components/ImageSelector';
+
 
 const Form = props => {
 
@@ -116,12 +118,8 @@ const Form = props => {
     {
       content: (
         <View>
-        <Text style={styles.label}>This is where you can enter your plant image plachodler</Text>
-          <TextInput 
-          style={styles.textInput} 
-          onChangeText={imageChangeHandler}
-          value={image}
-        />
+        <Text style={styles.label}>Take a Photo of Your Plant</Text>
+        <ImageSelector />
         </View>
       ),
     },
@@ -167,7 +165,8 @@ const Form = props => {
       <SafeAreaView style={{ backgroundColor: Colors.gold }}>
         <View
           style={{
-            justifyContent: "space-between",
+            paddingTop: 10,
+            justifyContent: "space-around",
             alignItems: "center",
             flexDirection: "row",
             backgroundColor: Colors.whitish,
@@ -267,6 +266,6 @@ const styles = StyleSheet.create({
     margin: 18,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    marginTop: 240
+    marginTop: 160
   }
 });
