@@ -32,8 +32,8 @@ const Form = props => {
   const nameChangeHandler = (text) => {
     setName(text);
   };
-  const typeChangeHandler = (text) => {
-    setType(text);
+  const typeChangeHandler = (itemValue, itemIndex) => {
+    setType(itemValue);
   };
   const imageChangeHandler = (text) => {
     setImage(text);
@@ -85,7 +85,7 @@ const Form = props => {
     {
       content: (
         <View>
-          <DefaultText style={styles.label}>This is where you can add a new plant!</DefaultText>
+          <Text style={styles.label}>This is where you can add a new plant!</Text>
           <TextInput 
             style={styles.textInput} 
             onChangeText={nameChangeHandler}
@@ -97,19 +97,26 @@ const Form = props => {
     {
       content: (
         <View>
-          <DefaultText style={styles.label}>This is where you can choose your plant type</DefaultText>
-          <TextInput 
-          style={styles.textInput} 
-          onChangeText={typeChangeHandler}
-          value={type}
-        />
+          <Text style={styles.label}>This is where you can choose your plant type</Text>
+          <Picker 
+          // style={styles.textInput}
+          onValueChange={typeChangeHandler}
+          SelectedValue={type}
+          >
+            <Picker.Item label="Alocasia" value="alocasia" />
+            <Picker.Item label="Ficus" value="ficus" />
+            <Picker.Item label="Monstera" value="monstera" />
+            <Picker.Item label="Calathea" value="calathea" />
+            <Picker.Item label="Succulent" value="succulent" />
+            <Picker.Item label="Cactus" value="cactus" />
+          </Picker>
         </View>
       ),
     },
     {
       content: (
         <View>
-        <DefaultText style={styles.label}>This is where you can enter your plant image plachodler</DefaultText>
+        <Text style={styles.label}>This is where you can enter your plant image plachodler</Text>
           <TextInput 
           style={styles.textInput} 
           onChangeText={imageChangeHandler}
@@ -121,7 +128,7 @@ const Form = props => {
     {
       content: (
         <View>
-        <DefaultText style={styles.label}>When did you bring home your plant?</DefaultText>
+        <Text style={styles.label}>When did you bring home your plant?</Text>
         <DateTimePicker
             display={Platform.OS === 'android' ? 'default' : 'spinner'}
             onChange={onDateReceivedChangeHandler}
@@ -133,7 +140,7 @@ const Form = props => {
     {
       content: (
         <View>
-        <DefaultText style={styles.label}>When did you last water your plant?</DefaultText>
+        <Text style={styles.label}>When did you last water your plant?</Text>
           <DateTimePicker
             display={Platform.OS === 'android' ? 'default' : 'spinner'}
             onChange={onWaterDateChangeHandler}
@@ -145,7 +152,7 @@ const Form = props => {
     {
       content: (
         <View>
-          <DefaultText style={styles.label}>Would you like to add any note to your plant?</DefaultText>
+          <Text style={styles.label}>Would you like to add any note to your plant?</Text>
           <TextInput 
             style={styles.textInput}
             onChangeText={notesChangeHandler}
@@ -234,26 +241,33 @@ const styles = StyleSheet.create({
     margin: 30
   },
   inputContainer: {
-    marginTop: 200,
+    marginTop: 150,
     alignItems: "center", 
-    justifyContent: "center" 
+    justifyContent: "center",
+    marginHorizontal: 20
   },
   label: {
-    fontSize: 56,
     marginBottom: 15,
-    color: Colors.green
+    color: Colors.grey,
+    fontSize: 48,
+    fontFamily: 'open-sans',
+    textAlign: 'center',
   },
   textInput: {
     borderBottomColor: Colors.green,
     borderBottomWidth: 1,
     marginBottom: 15,
-    paddingVertical: 10
+    paddingVertical: 10,
+    textAlign: 'center',
+    fontFamily: 'open-sans-italic',
+    fontSize: 36,
+    color: Colors.gold
   },
   dotsContainer: {
     flexDirection: "row", 
     margin: 18,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    marginTop: 360
+    marginTop: 240
   }
 });
