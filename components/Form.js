@@ -32,8 +32,8 @@ const Form = props => {
   const nameChangeHandler = (text) => {
     setName(text);
   };
-  const typeChangeHandler = (itemValue, itemIndex) => {
-    setType(itemValue);
+  const typeChangeHandler = (inputValue) => {
+    setType(inputValue);
   };
   const imageChangeHandler = (text) => {
     setImage(text);
@@ -99,9 +99,9 @@ const Form = props => {
         <View>
           <Text style={styles.label}>This is where you can choose your plant type</Text>
           <Picker 
-          // style={styles.textInput}
+        
           onValueChange={typeChangeHandler}
-          SelectedValue={type}
+          selectedValue={type}
           >
             <Picker.Item label="Alocasia" value="alocasia" />
             <Picker.Item label="Ficus" value="ficus" />
@@ -232,7 +232,6 @@ Form.navigationOptions = navData => {
     
   }
 };
-
 
 export default Form;
 
