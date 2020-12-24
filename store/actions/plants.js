@@ -7,6 +7,7 @@ export const ADD_PLANT = "ADD_PLANT";
 export const SET_PLANTS = "SET_PLANTS";
 export const UPDATE_PLANT = 'UPDATE_PLANT'
 export const WATER_PLANT = 'WATER_PLANT'
+export const DELETE_PLANT = 'DELETE_PLANT';
 
 
 export const toggleFavorite = (id) => {
@@ -48,9 +49,22 @@ export const fetchPlants = () => {
   };
 };
 
+export const deletePlant = id => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
+    const response = await fetch(
+      `https://plantera-46325-default-rtdb.firebaseio.com/plants/${id}.json?auth=${token}`,
+      {
+        method: 'DELETE'
+      }
+    );
 
-
-
+    if (!response.ok) {
+      throw new Error('Something went wrong!');
+    }
+    dispatch({ type: DELETE_PLANT, pid: plantId });
+  };
+};
 
 export const addPlant = (name, type, image, dateReceived, waterDate, notes) => {
     return async (dispatch, getState) => {

@@ -117,7 +117,7 @@ const Form = props => {
     {
       content: (
         <View>
-          <Text style={styles.label}>This is where you can add a new plant!</Text>
+          <Text style={styles.label}>What's your plant's name?</Text>
           <TextInput 
             style={styles.textInput} 
             onChangeText={nameChangeHandler}

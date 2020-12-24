@@ -1,12 +1,12 @@
 import React, { useEffect, useCallback } from 'react'
-import { StyleSheet, Text, View, ScrollView, Image, Button } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, Image, Button, Alert } from 'react-native'
 import Colors  from '../constants/Colors'
 import { BoldText, DefaultText } from '../components/Text'
 import PLANTS from '../data/seed-data';
 import { Ionicons } from '@expo/vector-icons'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
-import { toggleFavorite, waterPlant } from '../store/actions/plants';
+import { toggleFavorite, waterPlant, deletePlant } from '../store/actions/plants';
 import { useSelector, useDispatch } from 'react-redux';
 import addDays from 'date-fns/addDays'
 import format from 'date-fns/format'
@@ -36,7 +36,21 @@ const PlantDetailsScreen = props => {
     dispatch(toggleFavorite(plantId));
   }, [dispatch, plantId]);
 
-  const nextWaterDate = dateString=> {
+  const deletePlantHandler = (id) => {
+    Alert.alert('Are you sure?', 'Do you really want to delete this item?', [
+      { text: 'No', style: 'default' },
+      {
+        text: 'Yes',
+        style: 'destructive',
+        onPress: () => {
+          dispatch(deletePlant(id));
+          props.navigation.navigate('PlantsList')
+        }
+      }
+    ]);
+  };
+
+  const nextWaterDate = dateString => {
    const formattedWaterDate = new Date(dateString)
    const nextWaterDate = addDays(formattedWaterDate, 7)
    const formattedNextWaterDate = format(nextWaterDate, ('MM/dd/yyyy'))
@@ -85,6 +99,13 @@ const PlantDetailsScreen = props => {
           title='Edit Plant'
           onPress={() => {
             editPlantHandler(selectedPlant.id)
+          }}
+        />
+          <Button 
+          color={Colors.red}
+          title='Delete Plant'
+          onPress={() => {
+           deletePlantHandler(selectedPlant.id)
           }}
         />
       </View>

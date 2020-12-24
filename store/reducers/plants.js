@@ -1,4 +1,4 @@
-import { TOGGLE_FAVORITE, ADD_PLANT, WATER_PLANT, SET_PLANTS, UPDATE_PLANT } from '../actions/plants'
+import { TOGGLE_FAVORITE, ADD_PLANT, WATER_PLANT, SET_PLANTS, UPDATE_PLANT, DELETE_PLANT } from '../actions/plants'
 import PLANTS from '../../data/seed-data';
 import Plant from '../../models/plant';
 import { format } from  'date-fns';
@@ -15,7 +15,6 @@ const plantsReducer = (state = initialState, action) => {
         plants: action.plants,
         favoritePlants: state.favoritePlants
       };
-
     case ADD_PLANT:
       const newPlant = new Plant(
         new Date().toString(),
@@ -55,7 +54,6 @@ const plantsReducer = (state = initialState, action) => {
         plants: updatedPlants,
         favoritePlants: state.favoritePlants
       };
-
     case WATER_PLANT:
       const wateredPlantIndex = state.plants.findIndex(
         plant => plant.id === action.pid
@@ -76,7 +74,6 @@ const plantsReducer = (state = initialState, action) => {
         plants: updatedWateredPlants,
         favoritePlants: state.favoritePlants
       }
-
     case TOGGLE_FAVORITE:
       const existingIndex = state.favoritePlants.findIndex(
         plant => plant.id === action.plantId
@@ -95,7 +92,13 @@ const plantsReducer = (state = initialState, action) => {
         favoritePlants: state.favoritePlants.concat(plant) 
       };
     };
-    
+    case DELETE_PLANT:
+      return {
+        ...state,
+        plants: state.plants.filter(
+          plant => plant.id !== action.pid
+        )
+      };
       default:
         return state;
   }
