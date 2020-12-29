@@ -10,7 +10,7 @@ import authReducer from './store/reducers/auth';
 import { LogBox } from 'react-native';
 
 
-LogBox.ignoreLogs(['Deprecation', 'Your project']);
+LogBox.ignoreLogs(['Deprecation', 'Your project', 'source']);
 
 const rootReducer = combineReducers({
   plants: plantsReducer,

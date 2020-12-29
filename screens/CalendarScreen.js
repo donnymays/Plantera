@@ -1,13 +1,31 @@
-import React from 'react'
+import React, {useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-native';
 import { CalendarList, Agenda } from 'react-native-calendars';
+import format from 'date-fns/format'
+
 
 const CalendarScreen = props => {
+  const plants = useSelector(state => state.plants.plants);
+  const dayMark = {selected: true, marked: true, selectedColor: 'blue'};
+  
+
+
+  const calendarFormattedDates = dateString => {
+    const stringToDate = new Date(dateString)
+    return(format(stringToDate, 'yyyy-MM-dd'))
+  };
+  
+
+  const calendarPlantObjects = plants.map(plant => ({name: plant.name, calendarDate: calendarFormattedDates(plant.waterDate)}));
+  
+  
+
   return (
     <View>
       <CalendarList
         // Callback which gets executed when visible months change in scroll view. Default = undefined
-        onVisibleMonthsChange={(months) => {console.log('now these months are visible', months);}}
+        // onVisibleMonthsChange={(months) => {console.log('now these months are visible', months);}}
         // Max amount of months allowed to scroll to the past. Default = 50
         pastScrollRange={50}
         // Max amount of months allowed to scroll to the future. Default = 50
