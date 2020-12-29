@@ -49,11 +49,11 @@ export const fetchPlants = () => {
   };
 };
 
-export const deletePlant = id => {
+export const deletePlant = plantId => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
     const response = await fetch(
-      `https://plantera-46325-default-rtdb.firebaseio.com/plants/${id}.json?auth=${token}`,
+      `https://plantera-46325-default-rtdb.firebaseio.com/plants/${plantId}.json?auth=${token}`,
       {
         method: 'DELETE'
       }

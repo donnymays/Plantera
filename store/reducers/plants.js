@@ -4,7 +4,7 @@ import Plant from '../../models/plant';
 import { format } from  'date-fns';
 
 const initialState = {
-  plants: PLANTS, 
+  plants: [], 
   favoritePlants: []
 };
 

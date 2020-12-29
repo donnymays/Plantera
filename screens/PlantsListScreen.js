@@ -60,8 +60,8 @@ const PlantsListScreen = props => {
   if (!isLoading && plants.length === 0) {
     return (
       <View style={styles.centered}>
-      <DefaultText>No Plants found.  Try adding some.</DefaultText>
-    </View>
+        <DefaultText>No Plants found.  Try adding some.</DefaultText>
+      </View>
     )
   }
 
