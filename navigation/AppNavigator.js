@@ -57,6 +57,15 @@ const LogInNavigator = createStackNavigator(
   }
 );
 
+const CalendarNavigator = createStackNavigator(
+  {
+    Calendar: CalendarScreen
+  },
+  {
+    defaultNavigationOptions: defaultStackNavOptions
+  }
+);
+
 const tabScreenConfig = {
   Plants: {
     screen: PlantsNavigator,
@@ -70,7 +79,7 @@ const tabScreenConfig = {
     },
   },
   Calendar: {
-    screen: CalendarScreen,
+    screen: CalendarNavigator,
     navigationOptions: {
       tabBarLabel: "Calendar",
       tabBarIcon: (tabInfo) => {
