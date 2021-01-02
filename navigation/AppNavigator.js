@@ -12,7 +12,7 @@ import FavoritesScreen from "../screens/FavoritesScreen";
 import CalendarScreen from "../screens/CalendarScreen";
 import { BoldText } from "../components/Text";
 import Colors from "../constants/Colors";
-import Form from "../components/Form";
+import FormScreen from "../screens/FormScreen";
 import LoginScreen from "../screens/LoginScreen";
 
 const defaultStackNavOptions = {
@@ -31,7 +31,7 @@ const PlantsNavigator = createStackNavigator(
   {
     PlantsList: PlantsListScreen,
     PlantDetails: PlantDetailsScreen,
-    EditPlant: Form,
+    EditPlant: FormScreen,
   },
   {
     defaultNavigationOptions: defaultStackNavOptions,

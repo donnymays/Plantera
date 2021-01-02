@@ -6,7 +6,6 @@ import HeaderButton from '../components/HeaderButton';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '../constants/Colors'
 import { format } from 'date-fns';
-import parse from 'date-fns/parse'
 import * as plantsActions from '../store/actions/plants';
 import { DefaultText, ItalicText, BoldText } from '../components/Text';
 import Wizard from 'react-native-wizard';
@@ -81,7 +80,6 @@ const Form = props => {
     }
     return true;
   };
-
 
   const dispatch = useDispatch();
 
@@ -190,7 +188,7 @@ const Form = props => {
     {
       content: (
         <View>
-          <Text style={styles.label}>Would you like to add any note to your plant?</Text>
+          <Text style={styles.label}>Would you like to add a note to your plant?</Text>
           <TextInput 
             style={styles.textInput}
             onChangeText={notesChangeHandler}

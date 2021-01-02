@@ -1,5 +1,5 @@
 class Plant {
-  constructor(id, name, type, image, dateReceived, waterDate, notes) {
+  constructor(id, name, type, image, dateReceived, waterDate, notes, userId) {
     this.id = id;
     this.name = name;
     this.type = type;
@@ -7,7 +7,7 @@ class Plant {
     this.dateReceived = dateReceived;
     this.waterDate = waterDate;
     this.notes = notes;
-    // this.userId
+    this.userId
   }
 }
 

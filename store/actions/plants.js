@@ -15,10 +15,11 @@ export const toggleFavorite = (id) => {
 };
 
 export const fetchPlants = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const userId = getState().auth.userId;
     try {
       const response = await fetch(
-        "https://plantera-46325-default-rtdb.firebaseio.com/plants.json"
+        `https://plantera-46325-default-rtdb.firebaseio.com/plants/${userId}.json`
       );
 
       if (!response.ok) {
@@ -69,8 +70,9 @@ export const deletePlant = plantId => {
 export const addPlant = (name, type, image, dateReceived, waterDate, notes) => {
     return async (dispatch, getState) => {
       const token = getState().auth.token;
+      const userId = getState().auth.userId;
       const response = await fetch(
-      `https://plantera-46325-default-rtdb.firebaseio.com/plants.json?auth=${token}`,
+      `https://plantera-46325-default-rtdb.firebaseio.com/plants/${userId}.json?auth=${token}`,
       {
         method: "POST",
         headers: {
