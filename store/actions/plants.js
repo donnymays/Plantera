@@ -1,5 +1,6 @@
 import Plant from "../../models/plant";
 import { format } from "date-fns";
+import * as FileSystem from 'expo-file-system';
 
 
 export const TOGGLE_FAVORITE = "TOGGLE_FAVORITE";
@@ -118,8 +119,9 @@ export const updatePlant = (
 ) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
+    const userId = getState().auth.userId;
     const response = await fetch(
-      `https://plantera-46325-default-rtdb.firebaseio.com/plants/${id}.json?auth=${token}`,
+      `https://plantera-46325-default-rtdb.firebaseio.com/plants/${userId}/${id}.json?auth=${token}`,
       {
         method: "PATCH",
         headers: {

@@ -30,6 +30,9 @@ const Form = props => {
   const [dateReceived, setDateReceived] = useState(new Date());
   const [waterDate, setWaterDate] = useState(new Date());
   
+  const [show, setShow] = useState(false);
+
+
   const nameChangeHandler = (text) => {
     setName(text);
   };
@@ -129,7 +132,7 @@ const Form = props => {
     {
       content: (
         <View>
-          <Text style={styles.label}>This is where you can choose your plant type</Text>
+          <Text style={styles.label}>Type of plant?</Text>
           <Picker 
             onValueChange={typeChangeHandler}
             selectedValue={type}
@@ -170,8 +173,8 @@ const Form = props => {
         <DateTimePicker
             display={Platform.OS === 'android' ? 'default' : 'spinner'}
             onChange={(event, selectedDate) => {
-              setShowDatePicker(!showDatePicker);
               const currentDate = selectedDate || dateReceived;
+              setShow(Platform.OS === 'ios');
               setDateReceived(currentDate);
             }}
             value={dateReceived}
@@ -186,7 +189,7 @@ const Form = props => {
           <DateTimePicker
             display={Platform.OS === 'android' ? 'default' : 'spinner'}
             onChange={(event, selectedDate) => {
-              setShowDatePicker(!showDatePicker);
+              setShow(Platform.OS === 'ios');
               const currentDate = selectedDate || waterDate;
               setWaterDate(currentDate);
             }}

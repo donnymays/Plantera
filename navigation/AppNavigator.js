@@ -14,6 +14,7 @@ import { BoldText } from "../components/Text";
 import Colors from "../constants/Colors";
 import FormScreen from "../screens/FormScreen";
 import LoginScreen from "../screens/LoginScreen";
+import StartupScreen from "../screens/StartupScreen";
 
 const defaultStackNavOptions = {
   headerStyle: {
@@ -146,6 +147,7 @@ const SideBarNavigator = createDrawerNavigator(
 );
 
 const MainNavigator = createSwitchNavigator({
+  Startup: StartupScreen,
   LogIn: LogInNavigator,
   Plants: SideBarNavigator,
 });
