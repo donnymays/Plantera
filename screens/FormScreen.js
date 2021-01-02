@@ -27,8 +27,8 @@ const Form = props => {
   const [type, setType] = useState(editedPlant ? editedPlant.type : '');
   const [image, setImage] = useState(editedPlant ? editedPlant.image : '');
   const [notes, setNotes] = useState(editedPlant ? editedPlant.notes : '');
-  const [dateReceived, setDateReceived] = useState(new Date(1598051730000));
-  const [waterDate, setWaterDate] = useState(new Date(1598051730000));
+  const [dateReceived, setDateReceived] = useState(new Date());
+  const [waterDate, setWaterDate] = useState(new Date());
   
   const nameChangeHandler = (text) => {
     setName(text);
@@ -44,6 +44,7 @@ const Form = props => {
   const notesChangeHandler = (text) => {
     setNotes(text);
   };
+
   const onDateReceivedChangeHandler = (event, selectedDate) => {
     const currentDate = selectedDate || dateReceived;
     setDateReceived(currentDate);
@@ -110,7 +111,8 @@ const Form = props => {
 
   useEffect(() => {
     props.navigation.setParams({ submit: submitHandler })
-  }, [submitHandler])
+  }, [submitHandler]);
+  
   const stepList = [
     {
       content: (
@@ -146,13 +148,13 @@ const Form = props => {
       content: (
         <View>
           <Text style={styles.label}>Take a Photo of Your Plant</Text>
-          <View style={styles.imagePreview}>
+          {/* <View style={styles.imagePreview}>
             {!image ? <Text>No Photo to Display</Text>
             : <Image 
               style={styles.image}
               source={{uri: image}}
             />}
-          </View>
+          </View> */}
           <Button
             title="Take Image"
             color={Colors.green}
@@ -167,7 +169,11 @@ const Form = props => {
         <Text style={styles.label}>When did you bring home your plant?</Text>
         <DateTimePicker
             display={Platform.OS === 'android' ? 'default' : 'spinner'}
-            onChange={onDateReceivedChangeHandler}
+            onChange={(event, selectedDate) => {
+              setShowDatePicker(!showDatePicker);
+              const currentDate = selectedDate || dateReceived;
+              setDateReceived(currentDate);
+            }}
             value={dateReceived}
         />
         </View>
@@ -179,7 +185,11 @@ const Form = props => {
         <Text style={styles.label}>When did you last water your plant?</Text>
           <DateTimePicker
             display={Platform.OS === 'android' ? 'default' : 'spinner'}
-            onChange={onWaterDateChangeHandler}
+            onChange={(event, selectedDate) => {
+              setShowDatePicker(!showDatePicker);
+              const currentDate = selectedDate || waterDate;
+              setWaterDate(currentDate);
+            }}
             value={waterDate}
           />
         </View>

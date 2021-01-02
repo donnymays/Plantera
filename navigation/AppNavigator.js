@@ -133,7 +133,7 @@ const SideBarNavigator = createDrawerNavigator(
         drawerLabel: "Plants",
       },
     },
-    Calendar: CalendarScreen,
+    Calendar: CalendarNavigator,
   },
   {
     contentOptions: {

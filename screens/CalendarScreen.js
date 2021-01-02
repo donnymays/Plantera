@@ -47,19 +47,21 @@ const CalendarScreen = props => {
           calendarBackground: Colors.whitish,
           backgroundColor: Colors.whitish,
           dotColor: Colors.red,
-          selectedDotColor: Colors.green,
+          selectedDotColor: Colors.gold,
           selectedDayBackgroundColor: Colors.green,
-          textMonthFontFamily: 'sacramento',
+          textMonthFontFamily: 'open-sans-italic',
           textDayFontFamily: 'open-sans',
           textDayHeaderFontFamily: 'open-sans-bold',
           textMonthFontSize: 24,
           textDayFontSize: 18,
           agendaDayNumColor: Colors.gold,
-          agendaDayTextColor: Colors.red
+          agendaDayTextColor: Colors.red,
+          agendaKnobColor: Colors.grey,
+          agendaTodayColor: Colors.taupe
         }}
-        renderEmptyDate={() => {return (
-          <View>
-            <DefaultText>No events to disply</DefaultText>
+        renderEmptyData={() => {return (
+          <View style={styles.emptyDate}>
+            <Text style={{fontSize: 32, fontFamily: 'open-sans', color: Colors.grey}}>No events to display</Text>
           </View>
         );}}
       />
@@ -105,5 +107,10 @@ const styles = StyleSheet.create({
     padding: 10,
     marginRight: 10,
     marginTop: 17
+  },
+  emptyDate: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1
   }
 })
