@@ -178,7 +178,7 @@ const Form = props => {
             /> : <Text></Text>}
         {show && (
           <DateTimePicker
-            display={Platform.OS === 'android' ? 'default' : 'spinner'}
+            display='spinner'
             onChange={(event, selectedDate) => {
               const currentDate = selectedDate || dateReceived;
               Platform.OS === 'android' ? setShow(false) : ''
@@ -203,7 +203,7 @@ const Form = props => {
             /> : <Text></Text>}
           {show && (
             <DateTimePicker
-            display={Platform.OS === 'android' ? 'default' : 'spinner'}
+            display='spinner'
             onChange={(event, selectedDate) => {
               const currentDate = selectedDate || waterDate;
               Platform.OS === 'android' ? setShow(false) : ''
