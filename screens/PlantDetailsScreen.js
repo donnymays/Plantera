@@ -29,7 +29,7 @@ const PlantDetailsScreen = props => {
 
   const waterPlantHandler = useCallback(() => {
     dispatch(waterPlant(plantId, plantName, plantType, plantImage, plantDateReceived, plantNotes));
-  }, [dispatch, plantId, plantName, plantType, plantImage, plantDateReceived, plantNotes]);
+  }, [dispatch]);
 
   const toggleFavoriteHandler = useCallback(() => {
     dispatch(toggleFavorite(plantId));

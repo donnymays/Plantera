@@ -27,10 +27,10 @@ const Form = props => {
   const [type, setType] = useState(editedPlant ? editedPlant.type : '');
   const [image, setImage] = useState(editedPlant ? editedPlant.image : '');
   const [notes, setNotes] = useState(editedPlant ? editedPlant.notes : '');
-  const [dateReceived, setDateReceived] = useState(new Date());
-  const [waterDate, setWaterDate] = useState(new Date());
+  const [dateReceived, setDateReceived] = useState(editedPlant ? new Date(editedPlant.dateReceived) : new Date());
+  const [waterDate, setWaterDate] = useState(editedPlant ? new Date (editedPlant.waterDate) : new Date());
   
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(Platform.OS === 'ios' ? true : false);
 
 
   const nameChangeHandler = (text) => {
@@ -48,15 +48,15 @@ const Form = props => {
     setNotes(text);
   };
 
-  const onDateReceivedChangeHandler = (event, selectedDate) => {
-    const currentDate = selectedDate || dateReceived;
-    setDateReceived(currentDate);
-  };
+  // const onDateReceivedChangeHandler = (event, selectedDate) => {
+  //   const currentDate = selectedDate || dateReceived;
+  //   setDateReceived(currentDate);
+  // };
 
-  const onWaterDateChangeHandler = (event, selectedDate) => {
-    const currentDate = selectedDate || waterDate;
-    setWaterDate(currentDate);
-  };
+  // const onWaterDateChangeHandler = (event, selectedDate) => {
+  //   const currentDate = selectedDate || waterDate;
+  //   setWaterDate(currentDate);
+  // };
 
   const imageChangeHandler = async () => {
     const hasPermission = await verifyPermissions();
@@ -170,15 +170,24 @@ const Form = props => {
       content: (
         <View>
         <Text style={styles.label}>When did you bring home your plant?</Text>
-        <DateTimePicker
+        {Platform.OS === 'android' ? 
+            <Button 
+            color={Colors.green}
+            title="Show Calender"
+            onPress={() => setShow(true)}
+            /> : <Text></Text>}
+        {show && (
+          <DateTimePicker
             display={Platform.OS === 'android' ? 'default' : 'spinner'}
             onChange={(event, selectedDate) => {
               const currentDate = selectedDate || dateReceived;
-              setShow(Platform.OS === 'ios');
+              Platform.OS === 'android' ? setShow(false) : ''
               setDateReceived(currentDate);
             }}
             value={dateReceived}
-        />
+          />
+        )}
+    
         </View>
       ),
     },
@@ -186,15 +195,24 @@ const Form = props => {
       content: (
         <View>
         <Text style={styles.label}>When did you last water your plant?</Text>
-          <DateTimePicker
+          {Platform.OS === 'android' ? 
+            <Button 
+            color={Colors.green}
+            title="Show Calender"
+            onPress={() => setShow(true)}
+            /> : <Text></Text>}
+          {show && (
+            <DateTimePicker
             display={Platform.OS === 'android' ? 'default' : 'spinner'}
             onChange={(event, selectedDate) => {
-              setShow(Platform.OS === 'ios');
               const currentDate = selectedDate || waterDate;
+              Platform.OS === 'android' ? setShow(false) : ''
               setWaterDate(currentDate);
             }}
             value={waterDate}
-          />
+            />
+          )}
+       
         </View>
       ),
     },

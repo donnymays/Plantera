@@ -115,7 +115,7 @@ const CalendarScreen = props => {
           dotColor: Colors.red,
           selectedDotColor: Colors.gold,
           selectedDayBackgroundColor: Colors.green,
-          textMonthFontFamily: 'open-sans-italic',
+          textMonthFontFamily: 'sacramento',
           textDayFontFamily: 'open-sans',
           textDayHeaderFontFamily: 'open-sans-bold',
           textMonthFontSize: 24,

@@ -80,7 +80,7 @@ const plantsReducer = (state = initialState, action) => {
       );
     if (existingIndex >= 0) {
       const updatedFavPlants = [...state.favoritePlants];
-      updatedFavePlants.splice(existingIndex, 1);
+      updatedFavPlants.splice(existingIndex, 1);
       return { 
         ...state, 
         favoritePlants: updatedFavPlants 
