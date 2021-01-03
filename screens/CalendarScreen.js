@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyleSheet, Text, View, TouchableOpacity, Alert, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Alert, SafeAreaView, ActivityIndicator } from 'react-native';
 import Colors from '../constants/Colors';
 import * as plantsActions from '../store/actions/plants';
 import { CalendarList, Agenda } from 'react-native-calendars';
@@ -11,72 +11,93 @@ import { DefaultText } from '../components/Text';
 import addDays from 'date-fns';
 
 const CalendarScreen = props => {
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState();
   const [items, setItems] = useState({});
-  const plants = useSelector(state => state.plants.plants);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(plantsActions.fetchPlants());
-  }, [dispatch]);
-
-  // const loadPlants = useCallback(async () => {
-  //   setError(null);
-  //   setIsRefreshing(true);
-  //   try {
-  //     await dispatch(plantsActions.fetchPlants());
-  //   } catch (err) {
-  //     setError(err.message);
-  //   }
-  //   setIsRefreshing(false);
-  // }, [dispatch, setIsLoading, setError]);
-
-  // useEffect(() => {
-  //   const willFocusSub = props.navigation.addListener(
-  //     'willFocus',
-  //     loadPlants
-  //   );
-  //   return () => {
-  //     willFocusSub.remove();
-  //   };
-  // }, [loadPlants]);
-
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   loadPlants().then(() => {
-  //     setIsLoading(false);
-  //   });
-  // }, [dispatch, loadPlants]);
   
+  const plants = useSelector(state => state.plants.plants);
   
-  // if (isLoading) {
-  //   return(
-  //     <View style={styles.centered}>
-  //       <ActivityIndicator size='large' color={Colors.green} />
-  //     </View>
-  //   )
-  // }
-
   const calendarFormattedDates = dateString => {
     const stringToDate = new Date(dateString)
     return(format(stringToDate, 'yyyy-MM-dd'))
   };
+  
+  const reducedPlants = plants.reduce((acc, currentPlant) => {
+    const {waterDate, ...plant} = currentPlant;
+    const formattedWaterDate = calendarFormattedDates(waterDate)
+    acc[formattedWaterDate] = [plant];
+    return acc;
+  }, {});
+  
+  useEffect(() => {
+    dispatch(plantsActions.fetchPlants());
+  }, [dispatch]);
 
+  const loadPlants = useCallback(async () => {
+    setError(null);
+    try {
+      await dispatch(plantsActions.fetchPlants());
+    } catch (err) {
+      setError(err.message);
+    }
+  }, [dispatch, setIsLoading, setError]);
 
   useEffect(() => {
-    const reducedPlants = plants.reduce((acc, currentPlant) => {
-      const {waterDate, ...plant} = currentPlant;
-      const formattedWaterDate = calendarFormattedDates(waterDate)
-      acc[formattedWaterDate] = [plant];
-      return acc;
-    }, {});
+    const willFocusSub = props.navigation.addListener(
+      'willFocus',
+      loadPlants,
+      setItems
+    );
+    return () => {
+      willFocusSub.remove();
+    };
+  }, [loadPlants]);
+
+  useEffect(() => {
+    setIsLoading(true);
     setItems(reducedPlants);
-  }, [])
+    loadPlants().then(() => {
+      setIsLoading(false);
+    });
+  }, [dispatch, loadPlants]);
+  
+  
+  if (isLoading) {
+    return(
+      <View style={styles.centered}>
+        <ActivityIndicator size='large' color={Colors.green} />
+      </View>
+    )
+  }
+
+  // useEffect(() => {
+  //   const reducedPlants = plants.reduce((acc, currentPlant) => {
+  //     const {waterDate, ...plant} = currentPlant;
+  //     const formattedWaterDate = calendarFormattedDates(waterDate)
+  //     acc[formattedWaterDate] = [plant];
+  //     return acc;
+  //   }, {});
+  //   setItems(reducedPlants);
+  // }, [])
 
   const renderItem = (item) => {
     return (
       <TouchableOpacity
         style={[styles.item, {height: item.height}]}
-        onPress={() => Alert.alert(item.name)}
+        onPress={() => {
+          props.navigation.navigate({
+            routeName: 'PlantDetails',
+            params: {
+              plantId: item.id,
+              plantName: item.name,
+              plantType: item.type,
+              plantImage: item.image,
+              plantDateReceived: item.dateReceived,
+              notes: item.dateReceived,
+            }
+          });
+        }}
       >
         <Text>{item.name}</Text>
       </TouchableOpacity>

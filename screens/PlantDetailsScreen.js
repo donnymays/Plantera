@@ -19,7 +19,6 @@ const PlantDetailsScreen = props => {
   const plantDateReceived = props.navigation.getParam('plantDateReceived');
   const plantNotes = props.navigation.getParam('plantNotes');
   
-  
   const plants = useSelector(state => state.plants.plants);
   const selectedPlant = plants.find(plant => plant.id === plantId);
   const currentPlantIsFavorite = useSelector(state => 

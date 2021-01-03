@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableNativeFeedback, Platform, Button } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, TouchableNativeFeedback, Platform, Button } from 'react-native';
 import Colors from '../constants/Colors';
 import {BoldText, DefaultText} from './Text';
 import addDays from 'date-fns/addDays'
@@ -21,7 +21,7 @@ const Plant = props => {
   return (
     <View style={styles.plant}>
       <View style={styles.touchable}>
-        <TouchableCmp onPress={() =>{props.onSelectPlant}} useForeground>
+        <TouchableCmp onPress={props.onSelectPlant} useForeground>
           <View>
             <View style={styles.imageContainer}>
               <Image style={styles.image} source={{ uri: props.image }} />
@@ -36,11 +36,11 @@ const Plant = props => {
                 title="View Details"
                 onPress={props.onSelectPlant}
               />
-              <Button
+              {/* <Button
                 color={Colors.green}
                 title="Water"
                 onPress={props.onWaterPlant}
-              />
+              /> */}
             </View>
           </View>
         </TouchableCmp>
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   actions: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
     height: "25%",
     paddingHorizontal: 20,

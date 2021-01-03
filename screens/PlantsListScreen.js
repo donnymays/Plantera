@@ -11,7 +11,6 @@ import PLANTS from '../data/seed-data';
 
 const PlantsListScreen = props => {  
   const [isLoading, setIsLoading] = useState(false)
-  const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState();
   const plants = useSelector(state => state.plants.plants);
   const dispatch = useDispatch();
@@ -22,13 +21,11 @@ const PlantsListScreen = props => {
 
   const loadPlants = useCallback(async () => {
     setError(null);
-    setIsRefreshing(true);
     try {
       await dispatch(plantsActions.fetchPlants());
     } catch (err) {
       setError(err.message);
     }
-    setIsRefreshing(false);
   }, [dispatch, setIsLoading, setError]);
 
   useEffect(() => {

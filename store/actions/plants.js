@@ -157,7 +157,14 @@ export const updatePlant = (
   };
 };
 
-export const waterPlant = (id, name, type, image, dateReceived, notes) => {
+export const waterPlant = (
+  id, 
+  name, 
+  type, 
+  image, 
+  dateReceived, 
+  notes
+) => {
   const updatedWaterDate = format(new Date(), "MM/dd/yyyy");
   return {
     type: WATER_PLANT,

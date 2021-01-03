@@ -1,7 +1,7 @@
 import { TOGGLE_FAVORITE, ADD_PLANT, WATER_PLANT, SET_PLANTS, UPDATE_PLANT, DELETE_PLANT } from '../actions/plants'
 import PLANTS from '../../data/seed-data';
 import Plant from '../../models/plant';
-import { format } from  'date-fns';
+
 
 const initialState = {
   plants: [], 
