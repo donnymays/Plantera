@@ -12,6 +12,7 @@ import Wizard from 'react-native-wizard';
 import { Picker } from '@react-native-picker/picker';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
+import * as firebase from 'firebase';
 
 
 const Form = props => {
@@ -71,6 +72,8 @@ const Form = props => {
    setImage(imageTaken.uri);
    console.log(imageTaken.uri);
   };
+
+  test
 
   const verifyPermissions = async () => {
     const result = await Permissions.askAsync(Permissions.CAMERA);
