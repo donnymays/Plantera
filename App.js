@@ -9,6 +9,8 @@ import plantsReducer from './store/reducers/plants';
 import authReducer from './store/reducers/auth';
 import { LogBox } from 'react-native';
 
+import * as firebase from 'firebase';
+
 
 LogBox.ignoreLogs(['Deprecation', 'Your project', 'source']);
 
@@ -16,6 +18,18 @@ const rootReducer = combineReducers({
   plants: plantsReducer,
   auth: authReducer
 });
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDVN1U5_hpUM30N3nRWW6iCxIjODLfMO9I",
+  authDomain: "plantera-46325.firebaseapp.com",
+  databaseURL: "https://plantera-46325-default-rtdb.firebaseio.com",
+  projectId: "plantera-46325",
+  storageBucket: "plantera-46325.appspot.com",
+  messagingSenderId: "1038440277606",
+  appId: "1:1038440277606:web:c1193b7939bfee992aefa7"
+}
+
+firebase.initializeApp(firebaseConfig);
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 

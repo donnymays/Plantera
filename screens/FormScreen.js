@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
-import { StyleSheet, Text, View, TextInput, ScrollView, Button, Platform, SafeAreaView, Image} from 'react-native';
+import { StyleSheet, Text, View, TextInput, Alert, Button, Platform, SafeAreaView, Image} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
@@ -13,6 +13,7 @@ import { Picker } from '@react-native-picker/picker';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import * as firebase from 'firebase';
+import "firebase/storage";
 
 
 const Form = props => {
@@ -64,16 +65,34 @@ const Form = props => {
     if (!hasPermission) {
         return;
     }
-   const imageTaken = await ImagePicker.launchCameraAsync({
-     allowsEditing: true,
-     aspect: [16, 9],
-     quality: 0.5
-   });
-   setImage(imageTaken.uri);
-   console.log(imageTaken.uri);
-  };
+    
+    uploadImage = async (uri) => {
+      const response = await fetch(uri);
+      const blob = await response.blob();
+      var ref = firebase.storage().ref().child("images/");
+      return ref.put(blob);
+    }
+    
+    const imageTaken = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [16, 9],
+      quality: 0.5
+    });
 
-  test
+    if (!imageTaken.cancelled) {
+      uploadImage(imageTaken.uri)
+        .then(() => {
+          Alert.alert("Success");
+        })
+        .catch((error) => {
+          Alert.alert(error.message);
+        });
+      setImage(imageTaken.uri);
+      console.log(imageTaken.uri);
+    }
+  }
+
+
 
   const verifyPermissions = async () => {
     const result = await Permissions.askAsync(Permissions.CAMERA);
@@ -93,7 +112,7 @@ const Form = props => {
   const submitHandler = useCallback( () => {
     
     if (editedPlant) {
-     dispatch(plantsActions.updatePlant(
+      dispatch(plantsActions.updatePlant(
         plantId,
         name,
         type,
@@ -103,7 +122,7 @@ const Form = props => {
         notes
       ))
     } else {
-       dispatch(plantsActions.addPlant(
+      dispatch(plantsActions.addPlant(
         name,
         type,
         image,
@@ -215,7 +234,6 @@ const Form = props => {
             value={waterDate}
             />
           )}
-       
         </View>
       ),
     },
