@@ -1,14 +1,13 @@
 import React, {useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyleSheet, Text, View, TouchableOpacity, Alert, SafeAreaView, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native';
 import Colors from '../constants/Colors';
 import * as plantsActions from '../store/actions/plants';
-import { CalendarList, Agenda } from 'react-native-calendars';
+import { Agenda } from 'react-native-calendars';
 import format from 'date-fns/format';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
-import { DefaultText } from '../components/Text';
-import addDays from 'date-fns';
+import addDays from 'date-fns/addDays'
 
 const CalendarScreen = props => {
   const [isLoading, setIsLoading] = useState(false)
@@ -18,18 +17,23 @@ const CalendarScreen = props => {
   
   const plants = useSelector(state => state.plants.plants);
   
-  const calendarFormattedDates = dateString => {
-    const stringToDate = new Date(dateString)
+  const calendarFormattedNextWaterDate = dateString => {
+    const stringToDate = addDays(new Date(dateString), 7)
     return(format(stringToDate, 'yyyy-MM-dd'))
   };
-  
-  const reducedPlants = plants.reduce((acc, currentPlant) => {
-    const {waterDate, ...plant} = currentPlant;
-    const formattedWaterDate = calendarFormattedDates(waterDate)
-    acc[formattedWaterDate] = [plant];
-    return acc;
-  }, {});
-  
+
+  useEffect(() => {
+    const reducedPlants = plants.reduce((calendarObject, currentPlant) => {
+      const {waterDate, ...plant} = currentPlant;
+      const formattedWaterDate = calendarFormattedNextWaterDate(waterDate)
+      calendarObject[formattedWaterDate] = [plant];
+      console.log(calendarObject);
+    return calendarObject;
+    }, {});
+    console.log('render');
+    setItems(reducedPlants);
+  }, []);
+
   useEffect(() => {
     dispatch(plantsActions.fetchPlants());
   }, [dispatch]);
@@ -56,12 +60,10 @@ const CalendarScreen = props => {
 
   useEffect(() => {
     setIsLoading(true);
-    setItems(reducedPlants);
     loadPlants().then(() => {
       setIsLoading(false);
     });
   }, [dispatch, loadPlants]);
-  
   
   if (isLoading) {
     return(
@@ -70,16 +72,6 @@ const CalendarScreen = props => {
       </View>
     )
   }
-
-  // useEffect(() => {
-  //   const reducedPlants = plants.reduce((acc, currentPlant) => {
-  //     const {waterDate, ...plant} = currentPlant;
-  //     const formattedWaterDate = calendarFormattedDates(waterDate)
-  //     acc[formattedWaterDate] = [plant];
-  //     return acc;
-  //   }, {});
-  //   setItems(reducedPlants);
-  // }, [])
 
   const renderItem = (item) => {
     return (
@@ -93,13 +85,14 @@ const CalendarScreen = props => {
               plantName: item.name,
               plantType: item.type,
               plantImage: item.image,
+              plantWaterDate: item.waterDate,
               plantDateReceived: item.dateReceived,
               notes: item.dateReceived,
             }
           });
         }}
       >
-        <Text>{item.name}</Text>
+        <Text style={styles.dayText}>Water {item.name} Today!</Text>
       </TouchableOpacity>
     );
   }
@@ -178,5 +171,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1
+  },
+  dayText: {
+    color: Colors.taupe,
+    fontFamily: 'open-sans-bold',
+    fontSize: 24
   }
 })

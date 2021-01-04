@@ -1,9 +1,7 @@
 import React, { useEffect, useCallback } from 'react'
-import { StyleSheet, Text, View, ScrollView, Image, Button, Alert } from 'react-native'
+import { StyleSheet, Text, View, Image, Button, Alert } from 'react-native'
 import Colors  from '../constants/Colors'
 import { BoldText, DefaultText } from '../components/Text'
-import PLANTS from '../data/seed-data';
-import { Ionicons } from '@expo/vector-icons'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
 import { toggleFavorite, waterPlant, deletePlant } from '../store/actions/plants';
@@ -104,7 +102,7 @@ const PlantDetailsScreen = props => {
           color={Colors.red}
           title='Delete Plant'
           onPress={() => {
-           deletePlantHandler(selectedPlant.id)
+            deletePlantHandler(selectedPlant.id)
           }}
         />
       </View>

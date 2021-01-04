@@ -1,5 +1,5 @@
 import React, { useReducer, useCallback, useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, ScrollView, Button, KeyboardAvoidingView, ActivityIndicator, Alert } from 'react-native';
+import { StyleSheet, Text, View, Button, KeyboardAvoidingView, ActivityIndicator, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Input from '../components/Input';
 import Colors from '../constants/Colors';
@@ -91,7 +91,7 @@ const LoginScreen = props => {
   );
   
   return (
-    <KeyboardAvoidingView
+  <KeyboardAvoidingView
     behavior="padding"
     keyboardVerticalOffset={50}
     style={styles.screen}
@@ -127,7 +127,7 @@ const LoginScreen = props => {
         />
         <View style={styles.buttonContainer}>
         {isLoading ? (
-          <ActivityIndicator size="small" color={Colors.primary} />
+          <ActivityIndicator size="small" color={Colors.green} />
           ) : (
             <Button
               title={isSignup ? 'Sign Up' : 'Login'}
@@ -135,18 +135,17 @@ const LoginScreen = props => {
               onPress={authHandler}
             />
           )}
-        </View>
-        <View style={styles.buttonContainer}></View>
-            <Button
-              title={`${isSignup ? 'Login' : 'Create Account'}`}
-              color={Colors.gold}
-              onPress={() => {
-                setIsSignup(prevState => !prevState);
-              }}
-            />
-        </View>
       </View>
-    {/* </View> */}
+      <View style={styles.buttonContainer}></View>
+        <Button
+          title={`${isSignup ? 'Login' : 'Create Account'}`}
+          color={Colors.gold}
+          onPress={() => {
+            setIsSignup(prevState => !prevState);
+          }}
+        />
+      </View>
+    </View>
   </KeyboardAvoidingView>
   )
 }

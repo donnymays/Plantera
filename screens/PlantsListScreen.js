@@ -7,7 +7,6 @@ import PlantList from '../components/PlantList'
 import * as plantsActions from '../store/actions/plants';
 import Colors from '../constants/Colors';
 import { DefaultText } from '../components/Text';
-import PLANTS from '../data/seed-data';
 
 const PlantsListScreen = props => {  
   const [isLoading, setIsLoading] = useState(false)

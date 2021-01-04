@@ -1,9 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import PlantList from '../components/PlantList';
-
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import HeaderButton from '../components/HeaderButton';
 import { useSelector } from 'react-redux';
 
 const FavoritesScreen = props => {

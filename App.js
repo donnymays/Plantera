@@ -29,7 +29,11 @@ const firebaseConfig = {
   appId: "1:1038440277606:web:c1193b7939bfee992aefa7"
 }
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}else {
+  firebase.app(); // if already initialized, use that one
+}
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 

@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
-import { StyleSheet, Text, View, TextInput, Alert, Button, Platform, SafeAreaView, Image} from 'react-native';
+import { StyleSheet, Text, View, TextInput, Alert, Button, Platform, SafeAreaView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import HeaderButton from '../components/HeaderButton';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '../constants/Colors'
 import { format } from 'date-fns';
 import * as plantsActions from '../store/actions/plants';
-import { DefaultText, ItalicText, BoldText } from '../components/Text';
 import Wizard from 'react-native-wizard';
 import { Picker } from '@react-native-picker/picker';
 import * as Permissions from 'expo-permissions';
@@ -34,7 +31,6 @@ const Form = props => {
   
   const [show, setShow] = useState(Platform.OS === 'ios' ? true : false);
 
-
   const nameChangeHandler = (text) => {
     setName(text);
   };
@@ -42,23 +38,9 @@ const Form = props => {
     setType(inputValue);
   };
   
-  // const imageChangeHandler = (text) => {
-  //   setImage(text);
-  // };
-  
   const notesChangeHandler = (text) => {
     setNotes(text);
   };
-
-  // const onDateReceivedChangeHandler = (event, selectedDate) => {
-  //   const currentDate = selectedDate || dateReceived;
-  //   setDateReceived(currentDate);
-  // };
-
-  // const onWaterDateChangeHandler = (event, selectedDate) => {
-  //   const currentDate = selectedDate || waterDate;
-  //   setWaterDate(currentDate);
-  // };
 
   const imageChangeHandler = async () => {
     const hasPermission = await verifyPermissions();
@@ -81,18 +63,15 @@ const Form = props => {
 
     if (!imageTaken.cancelled) {
       uploadImage(imageTaken.uri)
-        .then(() => {
-          Alert.alert("Success");
-        })
+        // .then(() => {
+        //   Alert.alert("Success");
+        // })
         .catch((error) => {
           Alert.alert(error.message);
         });
       setImage(imageTaken.uri);
-      console.log(imageTaken.uri);
     }
   }
-
-
 
   const verifyPermissions = async () => {
     const result = await Permissions.askAsync(Permissions.CAMERA);
@@ -110,7 +89,6 @@ const Form = props => {
   const dispatch = useDispatch();
 
   const submitHandler = useCallback( () => {
-    
     if (editedPlant) {
       dispatch(plantsActions.updatePlant(
         plantId,
@@ -209,7 +187,6 @@ const Form = props => {
             value={dateReceived}
           />
         )}
-    
         </View>
       ),
     },

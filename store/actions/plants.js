@@ -1,7 +1,5 @@
 import Plant from "../../models/plant";
 import { format } from "date-fns";
-import * as FileSystem from 'expo-file-system';
-
 
 export const TOGGLE_FAVORITE = "TOGGLE_FAVORITE";
 export const ADD_PLANT = "ADD_PLANT";
@@ -9,7 +7,6 @@ export const SET_PLANTS = "SET_PLANTS";
 export const UPDATE_PLANT = 'UPDATE_PLANT'
 export const WATER_PLANT = 'WATER_PLANT'
 export const DELETE_PLANT = 'DELETE_PLANT';
-
 
 export const toggleFavorite = (id) => {
   return { type: TOGGLE_FAVORITE, plantId: id };
