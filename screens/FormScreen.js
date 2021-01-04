@@ -10,7 +10,6 @@ import { Picker } from '@react-native-picker/picker';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import * as firebase from 'firebase';
-import "firebase/storage";
 
 
 const Form = props => {
@@ -48,7 +47,7 @@ const Form = props => {
         return;
     }
     
-    uploadImage = async (uri) => {
+    const uploadImage = async (uri) => {
       const response = await fetch(uri);
       const blob = await response.blob();
       var ref = firebase.storage().ref().child("images/");
@@ -90,7 +89,7 @@ const Form = props => {
 
   const submitHandler = useCallback( () => {
     if (editedPlant) {
-      dispatch(plantsActions.updatePlant(
+     dispatch(plantsActions.updatePlant(
         plantId,
         name,
         type,
@@ -100,7 +99,7 @@ const Form = props => {
         notes
       ))
     } else {
-      dispatch(plantsActions.addPlant(
+       dispatch(plantsActions.addPlant(
         name,
         type,
         image,

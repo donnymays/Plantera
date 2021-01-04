@@ -7,7 +7,6 @@ export const SET_PLANTS = "SET_PLANTS";
 export const UPDATE_PLANT = 'UPDATE_PLANT'
 export const WATER_PLANT = 'WATER_PLANT'
 export const DELETE_PLANT = 'DELETE_PLANT';
-
 export const toggleFavorite = (id) => {
   return { type: TOGGLE_FAVORITE, plantId: id };
 };
@@ -15,6 +14,7 @@ export const toggleFavorite = (id) => {
 export const fetchPlants = () => {
   return async (dispatch, getState) => {
     const userId = getState().auth.userId;
+    console.log(userId);
     try {
       const response = await fetch(
         `https://plantera-46325-default-rtdb.firebaseio.com/plants/${userId}.json`
@@ -25,7 +25,6 @@ export const fetchPlants = () => {
       }
 
       const resData = await response.json();
-
       const loadedPlants = [];
 
       for (const key in resData) {
@@ -176,33 +175,3 @@ export const waterPlant = (
     }
   }
 }
-
-// export const waterPlant = (id) => {
-//   const updatedWaterDate = format(new Date(), "MM/dd/yyyy");
-//   return async (dispatch) => {
-//     const response = await fetch(
-//       `https://plantera-46325-default-rtdb.firebaseio.com/plants/${id}.json`,
-//       {
-//         method: "PATCH",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           waterDate,
-//         }),
-//       }
-//     );
-
-//     if (!response.ok) {
-//       throw new Error("Something went wrong!");
-//     }
-
-//     dispatch({
-//       type: UPDATE_PLANT,
-//       pid: id,
-//       planttData: {
-//         waterDate: updatedWaterDate,
-//       },
-//     });
-//   };
-// };

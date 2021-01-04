@@ -9,15 +9,14 @@ import plantsReducer from './store/reducers/plants';
 import authReducer from './store/reducers/auth';
 import { LogBox } from 'react-native';
 
-import * as firebase from 'firebase';
 
-
-LogBox.ignoreLogs(['Deprecation', 'Your project', 'source']);
+LogBox.ignoreLogs(['Deprecation', 'Your project', 'source', 'setting', 'Native']);
 
 const rootReducer = combineReducers({
   plants: plantsReducer,
   auth: authReducer
 });
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyDVN1U5_hpUM30N3nRWW6iCxIjODLfMO9I",
@@ -32,7 +31,7 @@ const firebaseConfig = {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }else {
-  firebase.app(); // if already initialized, use that one
+  firebase.app();
 }
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
