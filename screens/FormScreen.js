@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
-import { StyleSheet, Text, View, TextInput, Alert, Button, Platform, SafeAreaView, Image} from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView, Button, Platform, SafeAreaView, Image} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
@@ -13,7 +13,6 @@ import { Picker } from '@react-native-picker/picker';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import * as firebase from 'firebase';
-import "firebase/storage";
 
 
 const Form = props => {
@@ -93,6 +92,7 @@ const Form = props => {
   }
 
 
+  test
 
   const verifyPermissions = async () => {
     const result = await Permissions.askAsync(Permissions.CAMERA);
@@ -112,7 +112,7 @@ const Form = props => {
   const submitHandler = useCallback( () => {
     
     if (editedPlant) {
-      dispatch(plantsActions.updatePlant(
+     dispatch(plantsActions.updatePlant(
         plantId,
         name,
         type,
@@ -122,7 +122,7 @@ const Form = props => {
         notes
       ))
     } else {
-      dispatch(plantsActions.addPlant(
+       dispatch(plantsActions.addPlant(
         name,
         type,
         image,
@@ -234,6 +234,7 @@ const Form = props => {
             value={waterDate}
             />
           )}
+       
         </View>
       ),
     },

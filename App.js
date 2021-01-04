@@ -9,8 +9,6 @@ import plantsReducer from './store/reducers/plants';
 import authReducer from './store/reducers/auth';
 import { LogBox } from 'react-native';
 
-import * as firebase from 'firebase';
-
 
 LogBox.ignoreLogs(['Deprecation', 'Your project', 'source', 'setting', 'Native']);
 
@@ -19,6 +17,7 @@ const rootReducer = combineReducers({
   auth: authReducer
 });
 
+<<<<<<< HEAD
 const firebaseConfig = {
   apiKey: "AIzaSyDVN1U5_hpUM30N3nRWW6iCxIjODLfMO9I",
   authDomain: "plantera-46325.firebaseapp.com",
@@ -33,6 +32,8 @@ if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }
 
+=======
+>>>>>>> parent of 5ba5a1a (firebase storage is functional)
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 // store.subscribe(() =>
