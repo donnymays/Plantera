@@ -1,7 +1,5 @@
 import Plant from "../../models/plant";
 import { format } from "date-fns";
-import * as FileSystem from 'expo-file-system';
-
 
 export const TOGGLE_FAVORITE = "TOGGLE_FAVORITE";
 export const ADD_PLANT = "ADD_PLANT";
@@ -18,6 +16,7 @@ export const toggleFavorite = (id) => {
 export const fetchPlants = () => {
   return async (dispatch, getState) => {
     const userId = getState().auth.userId;
+    console.log(userId);
     try {
       const response = await fetch(
         `https://plantera-46325-default-rtdb.firebaseio.com/plants/${userId}.json`
@@ -28,7 +27,6 @@ export const fetchPlants = () => {
       }
 
       const resData = await response.json();
-
       const loadedPlants = [];
 
       for (const key in resData) {

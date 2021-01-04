@@ -66,7 +66,7 @@ const Form = props => {
         return;
     }
     
-    uploadImage = async (uri) => {
+    const uploadImage = async (uri) => {
       const response = await fetch(uri);
       const blob = await response.blob();
       var ref = firebase.storage().ref().child("images/");

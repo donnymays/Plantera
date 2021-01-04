@@ -12,7 +12,7 @@ import { LogBox } from 'react-native';
 import * as firebase from 'firebase';
 
 
-LogBox.ignoreLogs(['Deprecation', 'Your project', 'source']);
+LogBox.ignoreLogs(['Deprecation', 'Your project', 'source', 'setting', 'Native']);
 
 const rootReducer = combineReducers({
   plants: plantsReducer,
@@ -29,7 +29,9 @@ const firebaseConfig = {
   appId: "1:1038440277606:web:c1193b7939bfee992aefa7"
 }
 
-firebase.initializeApp(firebaseConfig);
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
